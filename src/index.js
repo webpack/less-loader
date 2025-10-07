@@ -87,7 +87,7 @@ async function lessLoader(source) {
   } catch (error) {
     if (error.filename) {
       // `less` returns forward slashes on windows when `webpack` resolver return an absolute windows path in `WebpackFileManager`
-      // Ref: https://github.com/webpack-contrib/less-loader/issues/357
+      // Ref: https://github.com/webpack/less-loader/issues/357
       this.addDependency(path.normalize(error.filename));
     }
 
@@ -110,7 +110,7 @@ async function lessLoader(source) {
     }
 
     // `less` return forward slashes on windows when `webpack` resolver return an absolute windows path in `WebpackFileManager`
-    // Ref: https://github.com/webpack-contrib/less-loader/issues/357
+    // Ref: https://github.com/webpack/less-loader/issues/357
     const normalizedItem = path.normalize(item);
 
     // Custom `importer` can return only `contents` so item will be relative
