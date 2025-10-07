@@ -693,10 +693,10 @@ If you're new here, please take a moment to review our contributing guidelines b
 [npm-url]: https://npmjs.com/package/less-loader
 [node]: https://img.shields.io/node/v/less-loader.svg
 [node-url]: https://nodejs.org
-[tests]: https://github.com/webpack-contrib/less-loader/workflows/less-loader/badge.svg
-[tests-url]: https://github.com/webpack-contrib/less-loader/actions
-[cover]: https://codecov.io/gh/webpack-contrib/less-loader/branch/master/graph/badge.svg
-[cover-url]: https://codecov.io/gh/webpack-contrib/less-loader
+[tests]: https://github.com/webpack/less-loader/workflows/less-loader/badge.svg
+[tests-url]: https://github.com/webpack/less-loader/actions
+[cover]: https://codecov.io/gh/webpack/less-loader/branch/main/graph/badge.svg
+[cover-url]: https://codecov.io/gh/webpack/less-loader
 [discussion]: https://img.shields.io/github/discussions/webpack/webpack
 [discussion-url]: https://github.com/webpack/webpack/discussions
 [size]: https://packagephobia.now.sh/badge?p=less-loader

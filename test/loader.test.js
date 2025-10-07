@@ -63,7 +63,7 @@ describe("loader", () => {
   it("should install plugins", async () => {
     let pluginInstalled = false;
     // Using prototype inheritance here since Less plugins are usually instances of classes
-    // See https://github.com/webpack-contrib/less-loader/issues/181#issuecomment-288220113
+    // See https://github.com/webpack/less-loader/issues/181#issuecomment-288220113
     const testPlugin = {
       install() {
         pluginInstalled = true;
