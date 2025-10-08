@@ -471,7 +471,7 @@ module.exports = {
 
 ### Normal usage
 
-Chain the `less-loader` with [`css-loader`](https://github.com/webpack-contrib/css-loader) and [`style-loader`](https://github.com/webpack-contrib/style-loader) to immediately apply all styles to the DOM.
+Chain the `less-loader` with [`css-loader`](https://github.com/webpack/css-loader) and [`style-loader`](https://github.com/webpack/style-loader) to immediately apply all styles to the DOM.
 
 **webpack.config.js**
 
@@ -538,7 +538,7 @@ If you want to edit the original Less files inside Chrome, [there's a good blog 
 
 ### In production
 
-Usually, it's recommended to extract the style sheets into a dedicated file in production using the [MiniCssExtractPlugin](https://github.com/webpack-contrib/mini-css-extract-plugin). This way your styles are not dependent on JavaScript, improving performance and cacheability.
+Usually, it's recommended to extract the style sheets into a dedicated file in production using the [MiniCssExtractPlugin](https://github.com/webpack/mini-css-extract-plugin). This way your styles are not dependent on JavaScript, improving performance and cacheability.
 
 ### Imports
 
@@ -671,12 +671,12 @@ In production, on the other hand, it's not a good idea to apply your style sheet
 There are two possibilities to extract a style sheet from the bundle:
 
 - [`extract-loader`](https://github.com/peerigon/extract-loader) (simpler, but specialized on the css-loader's output)
-- [`MiniCssExtractPlugin`](https://github.com/webpack-contrib/mini-css-extract-plugin) (more complex, but works in all use-cases)
+- [`MiniCssExtractPlugin`](https://github.com/webpack/mini-css-extract-plugin) (more complex, but works in all use-cases)
 
 ### CSS modules gotcha
 
 There is a known problem when using Less with [CSS modules](https://github.com/css-modules/css-modules) regarding relative file paths in `url(...)` statements.
-[See this issue for an explanation](https://github.com/webpack-contrib/less-loader/issues/109#issuecomment-253797335).
+[See this issue for an explanation](https://github.com/webpack/less-loader/issues/109#issuecomment-253797335).
 
 ## Contributing
 
