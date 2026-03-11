@@ -805,7 +805,9 @@ describe("loader", () => {
     let contextInClass = false;
     let contextInObject = false;
 
-    class Plugin extends require("less").FileManager {
+    const less = (await import("less")).default;
+
+    class Plugin extends less.FileManager {
       constructor(less, pluginManager) {
         super();
 
