@@ -1,8 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import less from "less";
-
 const pathMap = {
   "some/css.css": path.resolve(
     __dirname,
@@ -143,37 +141,6 @@ const pathMap = {
   "3rd/b.less": path.resolve(__dirname, "..", "fixtures", "3rd", "b.less"),
 };
 
-class ResolvePlugin extends less.FileManager {
-  supports(filename) {
-    if (filename[0] === "/" || path.win32.isAbsolute(filename)) {
-      return true;
-    }
-
-    if (this.isPathAbsolute(filename)) {
-      return false;
-    }
-
-    return true;
-  }
-
-  supportsSync() {
-    return false;
-  }
-
-  async loadFile(filename, ...args) {
-    const result =
-      pathMap[filename] || path.resolve(__dirname, "..", "fixtures", filename);
-
-    return super.loadFile(result, ...args);
-  }
-}
-
-class CustomImportPlugin {
-  install(lessInstance, pluginManager) {
-    pluginManager.addFileManager(new ResolvePlugin());
-  }
-}
-
 async function getCodeFromLess(testId, options = {}, context = {}) {
   let pathToFile;
 
@@ -218,6 +185,40 @@ async function getCodeFromLess(testId, options = {}, context = {}) {
     ...defaultOptions,
     ...lessOptions,
   };
+
+  const less = (await import("less")).default;
+
+  class ResolvePlugin extends less.FileManager {
+    supports(filename) {
+      if (filename[0] === "/" || path.win32.isAbsolute(filename)) {
+        return true;
+      }
+
+      if (this.isPathAbsolute(filename)) {
+        return false;
+      }
+
+      return true;
+    }
+
+    supportsSync() {
+      return false;
+    }
+
+    async loadFile(filename, ...args) {
+      const result =
+        pathMap[filename] ||
+        path.resolve(__dirname, "..", "fixtures", filename);
+
+      return super.loadFile(result, ...args);
+    }
+  }
+
+  class CustomImportPlugin {
+    install(lessInstance, pluginManager) {
+      pluginManager.addFileManager(new ResolvePlugin());
+    }
+  }
 
   mergedOptions.plugins.unshift(new CustomImportPlugin());
 

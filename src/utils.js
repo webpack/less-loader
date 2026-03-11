@@ -223,20 +223,19 @@ function normalizeSourceMap(map) {
 
   newMap.sourceRoot = "";
 
-  // `less` returns POSIX paths, that's why we need to transform them back to native paths.
-
+  // `less` (old versions) returns POSIX paths, that's why we need to transform them back to native paths.
   newMap.sources = newMap.sources.map((source) => path.normalize(source));
 
   return newMap;
 }
 
-function getLessImplementation(loaderContext, implementation) {
+async function getLessImplementation(loaderContext, implementation) {
   let resolvedImplementation = implementation;
 
   if (!implementation || typeof implementation === "string") {
     const lessImplPkg = implementation || "less";
 
-    resolvedImplementation = require(lessImplPkg);
+    resolvedImplementation = (await import(lessImplPkg)).default;
   }
 
   return resolvedImplementation;

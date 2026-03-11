@@ -110,7 +110,11 @@ describe('"sourceMap" options', () => {
     const compiler = getCompiler(testId, {
       sourceMap: false,
       lessOptions: {
-        sourceMap: { outputSourceFiles: true },
+        sourceMap: {
+          sourceMapBasepath: "",
+          outputSourceFiles: true,
+          disableSourcemapAnnotation: true,
+        },
       },
     });
     const stats = await compile(compiler);

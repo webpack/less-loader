@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`"sourceMap" options should generate source maps when the "devtool" value is "source-map": css 1`] = `
 ".modules-dir-some-module,
@@ -55,6 +55,7 @@ exports[`"sourceMap" options should generate source maps when value has "false" 
 
 exports[`"sourceMap" options should generate source maps when value has "false" value, but the "lessOptions.sourceMap.outputSourceFiles" is "true": source map 1`] = `
 {
+  "file": "source-map.css",
   "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
   "names": [],
   "sourceRoot": "",
@@ -213,13 +214,14 @@ exports[`"sourceMap" options should work and generate custom source maps: css 1`
 #it-works {
   margin: 10px;
 }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5vZGVfbW9kdWxlcy9zb21lL21vZHVsZS5sZXNzIiwic291cmNlLW1hcC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FDRUE7RUREQyxjQUFBOztBQ0NEO0VBQ0UsWUFBQSIsInNvdXJjZXNDb250ZW50IjpbIi5tb2R1bGVzLWRpci1zb21lLW1vZHVsZSB7XG5cdGNvbG9yOiBob3RwaW5rO1xufVxuIiwiQGltcG9ydCBcInNvbWUvbW9kdWxlXCI7XG5cbiNpdC13b3JrczpleHRlbmQoLm1vZHVsZXMtZGlyLXNvbWUtbW9kdWxlKSB7XG4gIG1hcmdpbjogMTBweDtcbn1cbiJdfQ== */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5vZGVfbW9kdWxlcy9zb21lL21vZHVsZS5sZXNzIiwic291cmNlLW1hcC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FDRUE7RUREQyxjQUFBOztBQ0NEO0VBQ0UsWUFBQSIsImZpbGUiOiJzb3VyY2UtbWFwLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tb2R1bGVzLWRpci1zb21lLW1vZHVsZSB7XG5cdGNvbG9yOiBob3RwaW5rO1xufVxuIiwiQGltcG9ydCBcInNvbWUvbW9kdWxlXCI7XG5cbiNpdC13b3JrczpleHRlbmQoLm1vZHVsZXMtZGlyLXNvbWUtbW9kdWxlKSB7XG4gIG1hcmdpbjogMTBweDtcbn1cbiJdfQ== */"
 `;
 
 exports[`"sourceMap" options should work and generate custom source maps: errors 1`] = `[]`;
 
 exports[`"sourceMap" options should work and generate custom source maps: source map 1`] = `
 {
+  "file": "source-map.css",
   "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
   "names": [],
   "sources": [

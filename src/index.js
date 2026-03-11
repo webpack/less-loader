@@ -15,7 +15,7 @@ async function lessLoader(source) {
   let implementation;
 
   try {
-    implementation = getLessImplementation(this, options.implementation);
+    implementation = await getLessImplementation(this, options.implementation);
   } catch (error) {
     callback(error);
 
@@ -38,7 +38,9 @@ async function lessLoader(source) {
 
   if (useSourceMap) {
     lessOptions.sourceMap = {
+      sourceMapBasepath: "",
       outputSourceFiles: true,
+      disableSourcemapAnnotation: true,
     };
   }
 
@@ -123,7 +125,7 @@ async function lessLoader(source) {
     typeof result.map === "string" ? JSON.parse(result.map) : result.map;
 
   if (map && useSourceMap) {
-    map = normalizeSourceMap(map, this.rootContext);
+    map = normalizeSourceMap(map);
   }
 
   callback(null, css, map);
