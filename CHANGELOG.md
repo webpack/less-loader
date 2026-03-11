@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [12.3.2](https://github.com/webpack/less-loader/compare/v12.3.1...v12.3.2) (2026-03-11)
+
+
+### Bug Fixes
+
+* compatibility with ECMA modules less version ([#578](https://github.com/webpack/less-loader/issues/578)) ([6850f6c](https://github.com/webpack/less-loader/commit/6850f6cb032ca3226765b596ac6737439514c6c2))
+
 ### [12.3.1](https://github.com/webpack/less-loader/compare/v12.3.0...v12.3.1) (2026-02-05)
 
 
