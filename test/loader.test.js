@@ -14,8 +14,6 @@ import {
   validateDependencies,
 } from "./helpers";
 
-const CustomFileLoaderPlugin = require("./fixtures/folder/customFileLoaderPlugin");
-
 const nodeModulesPath = path.resolve(__dirname, "fixtures", "node_modules");
 
 jest.setTimeout(30000);
@@ -107,6 +105,11 @@ describe("loader", () => {
   });
 
   it("should work third-party plugins as fileLoader", async () => {
+    const getCustomFileLoaderPlugin = (
+      await import("./fixtures/folder/customFileLoaderPlugin")
+    ).default.default;
+    const CustomFileLoaderPlugin = await getCustomFileLoaderPlugin();
+
     const testId = "./file-load.less";
     const compiler = getCompiler(testId, {
       lessOptions: {

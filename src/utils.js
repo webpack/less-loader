@@ -230,13 +230,13 @@ function normalizeSourceMap(map) {
   return newMap;
 }
 
-function getLessImplementation(loaderContext, implementation) {
+async function getLessImplementation(loaderContext, implementation) {
   let resolvedImplementation = implementation;
 
   if (!implementation || typeof implementation === "string") {
     const lessImplPkg = implementation || "less";
 
-    resolvedImplementation = require(lessImplPkg);
+    resolvedImplementation = (await import(lessImplPkg)).default;
   }
 
   return resolvedImplementation;

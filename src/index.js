@@ -15,7 +15,7 @@ async function lessLoader(source) {
   let implementation;
 
   try {
-    implementation = getLessImplementation(this, options.implementation);
+    implementation = await getLessImplementation(this, options.implementation);
   } catch (error) {
     callback(error);
 
