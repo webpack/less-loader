@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`loader should add a file with an error as dependency so that the watcher is triggered when the error is fixed: errors 1`] = `
 [
