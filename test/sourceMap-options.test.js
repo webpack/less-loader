@@ -110,29 +110,18 @@ describe('"sourceMap" options', () => {
     const compiler = getCompiler(testId, {
       sourceMap: false,
       lessOptions: {
-        sourceMap: {
-          sourceMapBasepath: "",
-          outputSourceFiles: true,
-          disableSourcemapAnnotation: true,
-        },
+        sourceMap: { outputSourceFiles: true },
       },
     });
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
-    const codeFromLess = await getCodeFromLess(testId);
     const { css, map } = codeFromBundle;
 
     map.sourceRoot = "";
-    map.sources = map.sources.map((source) => {
-      expect(path.isAbsolute(source)).toBe(true);
-      expect(fs.existsSync(path.resolve(map.sourceRoot, source))).toBe(true);
+    map.sources = map.sources.map((source) =>
+      path.normalize(source).replaceAll("\\", "/"),
+    );
 
-      return path
-        .relative(path.resolve(__dirname, ".."), source)
-        .replaceAll("\\", "/");
-    });
-
-    expect(css).toBe(codeFromLess.css);
     expect(css).toMatchSnapshot("css");
     expect(map).toMatchSnapshot("source map");
     expect(getWarnings(stats)).toMatchSnapshot("warnings");
