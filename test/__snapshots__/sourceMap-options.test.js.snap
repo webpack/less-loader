@@ -48,7 +48,7 @@ exports[`"sourceMap" options should generate source maps when value has "false" 
 #it-works {
   margin: 10px;
 }
-"
+/*# sourceMappingURL=source-map.css.map */"
 `;
 
 exports[`"sourceMap" options should generate source maps when value has "false" value, but the "lessOptions.sourceMap.outputSourceFiles" is "true": errors 1`] = `[]`;
@@ -60,8 +60,8 @@ exports[`"sourceMap" options should generate source maps when value has "false" 
   "names": [],
   "sourceRoot": "",
   "sources": [
-    "test/fixtures/node_modules/some/module.less",
-    "test/fixtures/source-map.less",
+    "node_modules/some/module.less",
+    "source-map.less",
   ],
   "sourcesContent": [
     ".modules-dir-some-module {
