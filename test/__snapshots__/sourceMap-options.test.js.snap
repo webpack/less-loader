@@ -1,247 +1,181 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`"sourceMap" options should generate source maps when the "devtool" value is "source-map": css 1`] = `
-".modules-dir-some-module,
-#it-works {
-  color: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
+exports[`\"sourceMap\" options > should generate source maps when the \"devtool\" value is \"source-map\" 1`] = `
+".modules-dir-some-module,\\n#it-works {\\n  color: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
 `;
 
-exports[`"sourceMap" options should generate source maps when the "devtool" value is "source-map": errors 1`] = `[]`;
-
-exports[`"sourceMap" options should generate source maps when the "devtool" value is "source-map": source map 1`] = `
+exports[`\"sourceMap\" options > should generate source maps when the \"devtool\" value is \"source-map\" 2`] = `
 {
-  "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
-  "names": [],
-  "sourceRoot": "",
+  "version": 3,
   "sources": [
     "test/fixtures/node_modules/some/module.less",
-    "test/fixtures/source-map.less",
+    "test/fixtures/source-map.less"
   ],
-  "sourcesContent": [
-    ".modules-dir-some-module {
-	color: hotpink;
-}
-",
-    "@import "some/module";
-
-#it-works:extend(.modules-dir-some-module) {
-  margin: 10px;
-}
-",
-  ],
-  "version": 3,
-}
-`;
-
-exports[`"sourceMap" options should generate source maps when the "devtool" value is "source-map": warnings 1`] = `[]`;
-
-exports[`"sourceMap" options should generate source maps when value has "false" value, but the "lessOptions.sourceMap.outputSourceFiles" is "true": css 1`] = `
-".modules-dir-some-module,
-#it-works {
-  color: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-/*# sourceMappingURL=source-map.css.map */"
-`;
-
-exports[`"sourceMap" options should generate source maps when value has "false" value, but the "lessOptions.sourceMap.outputSourceFiles" is "true": errors 1`] = `[]`;
-
-exports[`"sourceMap" options should generate source maps when value has "false" value, but the "lessOptions.sourceMap.outputSourceFiles" is "true": source map 1`] = `
-{
-  "file": "source-map.css",
-  "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
   "names": [],
-  "sourceRoot": "",
+  "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
+  "sourcesContent": [
+    ".modules-dir-some-module {\\n\\tcolor: hotpink;\\n}\\n",
+    "@import \\"some/module\\";\\n\\n#it-works:extend(.modules-dir-some-module) {\\n  margin: 10px;\\n}\\n"
+  ],
+  "sourceRoot": ""
+}
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when the \"devtool\" value is \"source-map\" 3`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when the \"devtool\" value is \"source-map\" 4`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value has \"false\" value, but the \"lessOptions.sourceMap.outputSourceFiles\" is \"true\" 1`] = `
+".modules-dir-some-module,\\n#it-works {\\n  color: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n/*# sourceMappingURL=source-map.css.map */"
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value has \"false\" value, but the \"lessOptions.sourceMap.outputSourceFiles\" is \"true\" 2`] = `
+{
+  "version": 3,
   "sources": [
     "node_modules/some/module.less",
-    "source-map.less",
+    "source-map.less"
   ],
-  "sourcesContent": [
-    ".modules-dir-some-module {
-	color: hotpink;
-}
-",
-    "@import "some/module";
-
-#it-works:extend(.modules-dir-some-module) {
-  margin: 10px;
-}
-",
-  ],
-  "version": 3,
-}
-`;
-
-exports[`"sourceMap" options should generate source maps when value has "false" value, but the "lessOptions.sourceMap.outputSourceFiles" is "true": warnings 1`] = `[]`;
-
-exports[`"sourceMap" options should generate source maps when value is "true" and the "devtool" value is "false": css 1`] = `
-".modules-dir-some-module,
-#it-works {
-  color: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
-`;
-
-exports[`"sourceMap" options should generate source maps when value is "true" and the "devtool" value is "false": errors 1`] = `[]`;
-
-exports[`"sourceMap" options should generate source maps when value is "true" and the "devtool" value is "false": source map 1`] = `
-{
-  "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
   "names": [],
-  "sourceRoot": "",
-  "sources": [
-    "test/fixtures/node_modules/some/module.less",
-    "test/fixtures/source-map.less",
-  ],
-  "sourcesContent": [
-    ".modules-dir-some-module {
-	color: hotpink;
-}
-",
-    "@import "some/module";
-
-#it-works:extend(.modules-dir-some-module) {
-  margin: 10px;
-}
-",
-  ],
-  "version": 3,
-}
-`;
-
-exports[`"sourceMap" options should generate source maps when value is "true" and the "devtool" value is "false": warnings 1`] = `[]`;
-
-exports[`"sourceMap" options should generate source maps when value is "true": css 1`] = `
-".modules-dir-some-module,
-#it-works {
-  color: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
-`;
-
-exports[`"sourceMap" options should generate source maps when value is "true": errors 1`] = `[]`;
-
-exports[`"sourceMap" options should generate source maps when value is "true": source map 1`] = `
-{
   "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
-  "names": [],
-  "sourceRoot": "",
-  "sources": [
-    "test/fixtures/node_modules/some/module.less",
-    "test/fixtures/source-map.less",
-  ],
-  "sourcesContent": [
-    ".modules-dir-some-module {
-	color: hotpink;
-}
-",
-    "@import "some/module";
-
-#it-works:extend(.modules-dir-some-module) {
-  margin: 10px;
-}
-",
-  ],
-  "version": 3,
-}
-`;
-
-exports[`"sourceMap" options should generate source maps when value is "true": warnings 1`] = `[]`;
-
-exports[`"sourceMap" options should not generate source maps when the "devtool" value is "false": css 1`] = `
-".modules-dir-some-module,
-#it-works {
-  color: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
-`;
-
-exports[`"sourceMap" options should not generate source maps when the "devtool" value is "false": errors 1`] = `[]`;
-
-exports[`"sourceMap" options should not generate source maps when the "devtool" value is "false": warnings 1`] = `[]`;
-
-exports[`"sourceMap" options should not generate source maps when value is "false" and the "devtool" value is "source-map": css 1`] = `
-".modules-dir-some-module,
-#it-works {
-  color: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
-`;
-
-exports[`"sourceMap" options should not generate source maps when value is "false" and the "devtool" value is "source-map": errors 1`] = `[]`;
-
-exports[`"sourceMap" options should not generate source maps when value is "false" and the "devtool" value is "source-map": warnings 1`] = `[]`;
-
-exports[`"sourceMap" options should not generate source maps when value is "false": css 1`] = `
-".modules-dir-some-module,
-#it-works {
-  color: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
-`;
-
-exports[`"sourceMap" options should not generate source maps when value is "false": errors 1`] = `[]`;
-
-exports[`"sourceMap" options should not generate source maps when value is "false": warnings 1`] = `[]`;
-
-exports[`"sourceMap" options should work and generate custom source maps: css 1`] = `
-".modules-dir-some-module,
-#it-works {
-  color: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5vZGVfbW9kdWxlcy9zb21lL21vZHVsZS5sZXNzIiwic291cmNlLW1hcC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FDRUE7RUREQyxjQUFBOztBQ0NEO0VBQ0UsWUFBQSIsImZpbGUiOiJzb3VyY2UtbWFwLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tb2R1bGVzLWRpci1zb21lLW1vZHVsZSB7XG5cdGNvbG9yOiBob3RwaW5rO1xufVxuIiwiQGltcG9ydCBcInNvbWUvbW9kdWxlXCI7XG5cbiNpdC13b3JrczpleHRlbmQoLm1vZHVsZXMtZGlyLXNvbWUtbW9kdWxlKSB7XG4gIG1hcmdpbjogMTBweDtcbn1cbiJdfQ== */"
-`;
-
-exports[`"sourceMap" options should work and generate custom source maps: errors 1`] = `[]`;
-
-exports[`"sourceMap" options should work and generate custom source maps: source map 1`] = `
-{
   "file": "source-map.css",
-  "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
+  "sourcesContent": [
+    ".modules-dir-some-module {\\n\\tcolor: hotpink;\\n}\\n",
+    "@import \\"some/module\\";\\n\\n#it-works:extend(.modules-dir-some-module) {\\n  margin: 10px;\\n}\\n"
+  ],
+  "sourceRoot": ""
+}
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value has \"false\" value, but the \"lessOptions.sourceMap.outputSourceFiles\" is \"true\" 3`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value has \"false\" value, but the \"lessOptions.sourceMap.outputSourceFiles\" is \"true\" 4`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value is \"true\" 1`] = `
+".modules-dir-some-module,\\n#it-works {\\n  color: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value is \"true\" 2`] = `
+{
+  "version": 3,
+  "sources": [
+    "test/fixtures/node_modules/some/module.less",
+    "test/fixtures/source-map.less"
+  ],
   "names": [],
+  "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
+  "sourcesContent": [
+    ".modules-dir-some-module {\\n\\tcolor: hotpink;\\n}\\n",
+    "@import \\"some/module\\";\\n\\n#it-works:extend(.modules-dir-some-module) {\\n  margin: 10px;\\n}\\n"
+  ],
+  "sourceRoot": ""
+}
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value is \"true\" 3`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value is \"true\" 4`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value is \"true\" and the \"devtool\" value is \"false\" 1`] = `
+".modules-dir-some-module,\\n#it-works {\\n  color: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value is \"true\" and the \"devtool\" value is \"false\" 2`] = `
+{
+  "version": 3,
+  "sources": [
+    "test/fixtures/node_modules/some/module.less",
+    "test/fixtures/source-map.less"
+  ],
+  "names": [],
+  "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
+  "sourcesContent": [
+    ".modules-dir-some-module {\\n\\tcolor: hotpink;\\n}\\n",
+    "@import \\"some/module\\";\\n\\n#it-works:extend(.modules-dir-some-module) {\\n  margin: 10px;\\n}\\n"
+  ],
+  "sourceRoot": ""
+}
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value is \"true\" and the \"devtool\" value is \"false\" 3`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should generate source maps when value is \"true\" and the \"devtool\" value is \"false\" 4`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should not generate source maps when the \"devtool\" value is \"false\" 1`] = `
+".modules-dir-some-module,\\n#it-works {\\n  color: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
+`;
+
+exports[`\"sourceMap\" options > should not generate source maps when the \"devtool\" value is \"false\" 2`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should not generate source maps when the \"devtool\" value is \"false\" 3`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should not generate source maps when value is \"false\" 1`] = `
+".modules-dir-some-module,\\n#it-works {\\n  color: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
+`;
+
+exports[`\"sourceMap\" options > should not generate source maps when value is \"false\" 2`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should not generate source maps when value is \"false\" 3`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should not generate source maps when value is \"false\" and the \"devtool\" value is \"source-map\" 1`] = `
+".modules-dir-some-module,\\n#it-works {\\n  color: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
+`;
+
+exports[`\"sourceMap\" options > should not generate source maps when value is \"false\" and the \"devtool\" value is \"source-map\" 2`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should not generate source maps when value is \"false\" and the \"devtool\" value is \"source-map\" 3`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should work and generate custom source maps 1`] = `
+".modules-dir-some-module,\\n#it-works {\\n  color: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5vZGVfbW9kdWxlcy9zb21lL21vZHVsZS5sZXNzIiwic291cmNlLW1hcC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FDRUE7RUREQyxjQUFBOztBQ0NEO0VBQ0UsWUFBQSIsImZpbGUiOiJzb3VyY2UtbWFwLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tb2R1bGVzLWRpci1zb21lLW1vZHVsZSB7XG5cdGNvbG9yOiBob3RwaW5rO1xufVxuIiwiQGltcG9ydCBcInNvbWUvbW9kdWxlXCI7XG5cbiNpdC13b3JrczpleHRlbmQoLm1vZHVsZXMtZGlyLXNvbWUtbW9kdWxlKSB7XG4gIG1hcmdpbjogMTBweDtcbn1cbiJdfQ== */"
+`;
+
+exports[`\"sourceMap\" options > should work and generate custom source maps 2`] = `
+{
+  "version": 3,
   "sources": [
     "node_modules/some/module.less",
-    "source-map.less",
+    "source-map.less"
   ],
+  "names": [],
+  "mappings": "AAAA;ACEA;EDDC,cAAA;;ACCD;EACE,YAAA",
+  "file": "source-map.css",
   "sourcesContent": [
-    ".modules-dir-some-module {
-	color: hotpink;
-}
-",
-    "@import "some/module";
-
-#it-works:extend(.modules-dir-some-module) {
-  margin: 10px;
-}
-",
-  ],
-  "version": 3,
+    ".modules-dir-some-module {\\n\\tcolor: hotpink;\\n}\\n",
+    "@import \\"some/module\\";\\n\\n#it-works:extend(.modules-dir-some-module) {\\n  margin: 10px;\\n}\\n"
+  ]
 }
 `;
 
-exports[`"sourceMap" options should work and generate custom source maps: warnings 1`] = `[]`;
+exports[`\"sourceMap\" options > should work and generate custom source maps 3`] = `
+[]
+`;
+
+exports[`\"sourceMap\" options > should work and generate custom source maps 4`] = `
+[]
+`;

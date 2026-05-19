@@ -1,53 +1,43 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+exports[`\"implementation\" option > should throw error when implementation has error 1`] = `
+[]
+`;
 
-exports[`"implementation" option should throw error when implementation has error: errors 1`] = `
+exports[`\"implementation\" option > should throw error when implementation has error 2`] = `
 [
-  "ModuleBuildError: Module build failed (from \`replaced original path\`):
-Error: The Less implementation "/test/fixtures/implementation-error.js" not found",
+  "ModuleBuildError: Module build failed (from \`replaced original path\`):\\nError: The Less implementation \\"/test/fixtures/implementation-error.cjs\\" not found"
 ]
 `;
 
-exports[`"implementation" option should throw error when implementation has error: warnings 1`] = `[]`;
+exports[`\"implementation\" option > should throw error when unresolved package 1`] = `
+[]
+`;
 
-exports[`"implementation" option should throw error when unresolved package: errors 1`] = `
+exports[`\"implementation\" option > should throw error when unresolved package 2`] = `
 [
-  "ModuleBuildError: Module build failed (from \`replaced original path\`):
-NonErrorEmittedError: (Emitted value instead of an instance of Error) Error: Cannot find module 'unresolved' from 'src/utils.js'",
+  "ModuleBuildError: Module build failed (from \`replaced original path\`):\\nError: Cannot find module 'unresolved'"
 ]
 `;
 
-exports[`"implementation" option should throw error when unresolved package: warnings 1`] = `[]`;
-
-exports[`"implementation" option should work when implementation option is string: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`\"implementation\" option > should work 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
 `;
 
-exports[`"implementation" option should work when implementation option is string: errors 1`] = `[]`;
-
-exports[`"implementation" option should work when implementation option is string: warnings 1`] = `[]`;
-
-exports[`"implementation" option should work: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`\"implementation\" option > should work 2`] = `
+[]
 `;
 
-exports[`"implementation" option should work: errors 1`] = `[]`;
+exports[`\"implementation\" option > should work 3`] = `
+[]
+`;
 
-exports[`"implementation" option should work: warnings 1`] = `[]`;
+exports[`\"implementation\" option > should work when implementation option is string 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
+`;
+
+exports[`\"implementation\" option > should work when implementation option is string 2`] = `
+[]
+`;
+
+exports[`\"implementation\" option > should work when implementation option is string 3`] = `
+[]
+`;

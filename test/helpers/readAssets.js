@@ -1,4 +1,4 @@
-import readAsset from "./readAsset";
+import readAsset from "./readAsset.js";
 
 export default function readAssets(compiler, stats) {
   const assets = {};

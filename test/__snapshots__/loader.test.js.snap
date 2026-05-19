@@ -1,691 +1,586 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+exports[`loader > should add a file with an error as dependency so that the watcher is triggered when the error is fixed 1`] = `
+[]
+`;
 
-exports[`loader should add a file with an error as dependency so that the watcher is triggered when the error is fixed: errors 1`] = `
+exports[`loader > should add a file with an error as dependency so that the watcher is triggered when the error is fixed 2`] = `
 [
-  "ModuleBuildError: Module build failed (from \`replaced original path\`):
-",
+  "ModuleBuildError: Module build failed (from \`replaced original path\`):\\n"
 ]
 `;
 
-exports[`loader should add a file with an error as dependency so that the watcher is triggered when the error is fixed: warnings 1`] = `[]`;
-
-exports[`loader should add all resolved imports as dependencies, including aliased ones: errors 1`] = `[]`;
-
-exports[`loader should add all resolved imports as dependencies, including aliased ones: warnings 1`] = `[]`;
-
-exports[`loader should add all resolved imports as dependencies, including node_modules: errors 1`] = `[]`;
-
-exports[`loader should add all resolved imports as dependencies, including node_modules: warnings 1`] = `[]`;
-
-exports[`loader should add all resolved imports as dependencies, including those from the Less resolver: errors 1`] = `[]`;
-
-exports[`loader should add all resolved imports as dependencies, including those from the Less resolver: warnings 1`] = `[]`;
-
-exports[`loader should add all resolved imports as dependencies: errors 1`] = `[]`;
-
-exports[`loader should add all resolved imports as dependencies: warnings 1`] = `[]`;
-
-exports[`loader should add path to dependencies: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`loader > should add all resolved imports as dependencies 1`] = `
+[]
 `;
 
-exports[`loader should add path to dependencies: errors 1`] = `[]`;
-
-exports[`loader should add path to dependencies: warnings 1`] = `[]`;
-
-exports[`loader should allow to import non-less files: css 1`] = `
-".some-file {
-  background: hotpink;
-}
-"
+exports[`loader > should add all resolved imports as dependencies 2`] = `
+[]
 `;
 
-exports[`loader should allow to import non-less files: errors 1`] = `[]`;
-
-exports[`loader should allow to import non-less files: warnings 1`] = `[]`;
-
-exports[`loader should be able to import a file with an absolute path: css 1`] = `
-".it-works {
-  color: yellow;
-}
-"
+exports[`loader > should add all resolved imports as dependencies, including aliased ones 1`] = `
+[]
 `;
 
-exports[`loader should be able to import a file with an absolute path: errors 1`] = `[]`;
-
-exports[`loader should be able to import a file with an absolute path: warnings 1`] = `[]`;
-
-exports[`loader should compile data-uri function: css 1`] = `
-".img {
-  background: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%2210%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-"
+exports[`loader > should add all resolved imports as dependencies, including aliased ones 2`] = `
+[]
 `;
 
-exports[`loader should compile data-uri function: errors 1`] = `[]`;
+exports[`loader > should add all resolved imports as dependencies, including node_modules 1`] = `
+[]
+`;
 
-exports[`loader should compile data-uri function: warnings 1`] = `[]`;
+exports[`loader > should add all resolved imports as dependencies, including node_modules 2`] = `
+[]
+`;
 
-exports[`loader should emit an error: errors 1`] = `
+exports[`loader > should add all resolved imports as dependencies, including those from the Less resolver 1`] = `
+[]
+`;
+
+exports[`loader > should add all resolved imports as dependencies, including those from the Less resolver 2`] = `
+[]
+`;
+
+exports[`loader > should add path to dependencies 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
+`;
+
+exports[`loader > should add path to dependencies 2`] = `
+[]
+`;
+
+exports[`loader > should add path to dependencies 3`] = `
+[]
+`;
+
+exports[`loader > should allow to import non-less files 1`] = `
+".some-file {\\n  background: hotpink;\\n}\\n"
+`;
+
+exports[`loader > should allow to import non-less files 2`] = `
+[]
+`;
+
+exports[`loader > should allow to import non-less files 3`] = `
+[]
+`;
+
+exports[`loader > should be able to import a file with an absolute path 1`] = `
+".it-works {\\n  color: yellow;\\n}\\n"
+`;
+
+exports[`loader > should be able to import a file with an absolute path 2`] = `
+[]
+`;
+
+exports[`loader > should be able to import a file with an absolute path 3`] = `
+[]
+`;
+
+exports[`loader > should compile data-uri function 1`] = `
+".img {\\n  background: url(\\"data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%2210%22%2F%3E%0A%3C%2Fsvg%3E\\");\\n}\\n"
+`;
+
+exports[`loader > should compile data-uri function 2`] = `
+[]
+`;
+
+exports[`loader > should compile data-uri function 3`] = `
+[]
+`;
+
+exports[`loader > should emit an error 1`] = `
+[]
+`;
+
+exports[`loader > should emit an error 2`] = `
 [
-  "ModuleBuildError: Module build failed (from \`replaced original path\`):
-",
+  "ModuleBuildError: Module build failed (from \`replaced original path\`):\\n"
 ]
 `;
 
-exports[`loader should emit an error: warnings 1`] = `[]`;
+exports[`loader > should emit less warning as webpack warning 1`] = `
+""
+`;
 
-exports[`loader should emit less warning as webpack warning: css 1`] = `""`;
-
-exports[`loader should emit less warning as webpack warning: errors 1`] = `[]`;
-
-exports[`loader should emit less warning as webpack warning: warnings 1`] = `
+exports[`loader > should emit less warning as webpack warning 2`] = `
 [
-  "ModuleWarning: Module Warning (from \`replaced original path\`):
-WARNING: extend ' .body1' has no matches",
+  "ModuleWarning: Module Warning (from \`replaced original path\`):\\nWARNING: extend ' .body1' has no matches"
 ]
 `;
 
-exports[`loader should get absolute path relative rootContext: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`loader > should emit less warning as webpack warning 3`] = `
+[]
 `;
 
-exports[`loader should get absolute path relative rootContext: errors 1`] = `[]`;
-
-exports[`loader should get absolute path relative rootContext: warnings 1`] = `[]`;
-
-exports[`loader should import from glob expressions: css 1`] = `
-".a {
-  color: red;
-}
-"
+exports[`loader > should get absolute path relative rootContext 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
 `;
 
-exports[`loader should import from glob expressions: errors 1`] = `[]`;
-
-exports[`loader should import from glob expressions: warnings 1`] = `[]`;
-
-exports[`loader should import from plugins: css 1`] = `
-".imported-class {
-  color: coral;
-}
-"
+exports[`loader > should get absolute path relative rootContext 2`] = `
+[]
 `;
 
-exports[`loader should import from plugins: errors 1`] = `[]`;
-
-exports[`loader should import from plugins: warnings 1`] = `[]`;
-
-exports[`loader should install plugins: errors 1`] = `[]`;
-
-exports[`loader should install plugins: warnings 1`] = `[]`;
-
-exports[`loader should not alter the original options object: errors 1`] = `[]`;
-
-exports[`loader should not alter the original options object: warnings 1`] = `[]`;
-
-exports[`loader should not to disable webpack's resolver by passing an empty paths array: css 1`] = `
-".img {
-  background: url(some/img.jpg);
-}
-.img2 {
-  background: url(../img.jpg);
-}
-.box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-body {
-  background: url(assets/resources/circle.svg);
-}
-.abs {
-  background: url(assets/resources/circle.svg);
-}
-"
+exports[`loader > should get absolute path relative rootContext 3`] = `
+[]
 `;
 
-exports[`loader should not to disable webpack's resolver by passing an empty paths array: errors 1`] = `[]`;
-
-exports[`loader should not to disable webpack's resolver by passing an empty paths array: warnings 1`] = `[]`;
-
-exports[`loader should not try to resolve CSS imports with URLs: css 1`] = `
-"@import url("http://fonts.googleapis.com/css?family=Roboto:300,400,500");
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
-@import url("//fonts.googleapis.com/css?family=Roboto:300,400,500");
-"
+exports[`loader > should import from glob expressions 1`] = `
+".a {\\n  color: red;\\n}\\n"
 `;
 
-exports[`loader should not try to resolve CSS imports with URLs: errors 1`] = `[]`;
-
-exports[`loader should not try to resolve CSS imports with URLs: warnings 1`] = `[]`;
-
-exports[`loader should prefer-relative imports correctly: css 1`] = `
-".prefer-relative-import {
-  background: red;
-}
-.relative {
-  color: coral;
-}
-"
+exports[`loader > should import from glob expressions 2`] = `
+[]
 `;
 
-exports[`loader should prefer-relative imports correctly: errors 1`] = `[]`;
+exports[`loader > should import from glob expressions 3`] = `
+[]
+`;
 
-exports[`loader should prefer-relative imports correctly: warnings 1`] = `[]`;
+exports[`loader > should import from plugins 1`] = `
+".imported-class {\\n  color: coral;\\n}\\n"
+`;
 
-exports[`loader should provide a useful error message if the import could not be found: errors 1`] = `
+exports[`loader > should import from plugins 2`] = `
+[]
+`;
+
+exports[`loader > should import from plugins 3`] = `
+[]
+`;
+
+exports[`loader > should install plugins 1`] = `
+[]
+`;
+
+exports[`loader > should install plugins 2`] = `
+[]
+`;
+
+exports[`loader > should not alter the original options object 1`] = `
+[]
+`;
+
+exports[`loader > should not alter the original options object 2`] = `
+[]
+`;
+
+exports[`loader > should not to disable webpack's resolver by passing an empty paths array 1`] = `
+".img {\\n  background: url(some/img.jpg);\\n}\\n.img2 {\\n  background: url(../img.jpg);\\n}\\n.box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\nbody {\\n  background: url(assets/resources/circle.svg);\\n}\\n.abs {\\n  background: url(assets/resources/circle.svg);\\n}\\n"
+`;
+
+exports[`loader > should not to disable webpack's resolver by passing an empty paths array 2`] = `
+[]
+`;
+
+exports[`loader > should not to disable webpack's resolver by passing an empty paths array 3`] = `
+[]
+`;
+
+exports[`loader > should not try to resolve CSS imports with URLs 1`] = `
+"@import url(\\"http://fonts.googleapis.com/css?family=Roboto:300,400,500\\");\\n@import url(\\"https://fonts.googleapis.com/css?family=Roboto:300,400,500\\");\\n@import url(\\"//fonts.googleapis.com/css?family=Roboto:300,400,500\\");\\n"
+`;
+
+exports[`loader > should not try to resolve CSS imports with URLs 2`] = `
+[]
+`;
+
+exports[`loader > should not try to resolve CSS imports with URLs 3`] = `
+[]
+`;
+
+exports[`loader > should prefer-relative imports correctly 1`] = `
+".prefer-relative-import {\\n  background: red;\\n}\\n.relative {\\n  color: coral;\\n}\\n"
+`;
+
+exports[`loader > should prefer-relative imports correctly 2`] = `
+[]
+`;
+
+exports[`loader > should prefer-relative imports correctly 3`] = `
+[]
+`;
+
+exports[`loader > should provide a useful error message if the import could not be found 1`] = `
+[]
+`;
+
+exports[`loader > should provide a useful error message if the import could not be found 2`] = `
 [
-  "ModuleBuildError: Module build failed (from \`replaced original path\`):
-",
+  "ModuleBuildError: Module build failed (from \`replaced original path\`):\\n"
 ]
 `;
 
-exports[`loader should provide a useful error message if the import could not be found: warnings 1`] = `[]`;
+exports[`loader > should provide a useful error message if there was a syntax error 1`] = `
+[]
+`;
 
-exports[`loader should provide a useful error message if there was a syntax error: errors 1`] = `
+exports[`loader > should provide a useful error message if there was a syntax error 2`] = `
 [
-  "ModuleBuildError: Module build failed (from \`replaced original path\`):
-",
+  "ModuleBuildError: Module build failed (from \`replaced original path\`):\\n"
 ]
 `;
 
-exports[`loader should provide a useful error message if there was a syntax error: warnings 1`] = `[]`;
-
-exports[`loader should resolve "@import" with "css" extension: css 1`] = `
-"@import "css.css";
-"
+exports[`loader > should resolve \"@import\" with \"css\" extension 1`] = `
+"@import \\"css.css\\";\\n"
 `;
 
-exports[`loader should resolve "@import" with "css" extension: errors 1`] = `[]`;
-
-exports[`loader should resolve "@import" with "css" extension: warnings 1`] = `[]`;
-
-exports[`loader should resolve "@import" with "less" extension: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`loader > should resolve \"@import\" with \"css\" extension 2`] = `
+[]
 `;
 
-exports[`loader should resolve "@import" with "less" extension: errors 1`] = `[]`;
-
-exports[`loader should resolve "@import" with "less" extension: warnings 1`] = `[]`;
-
-exports[`loader should resolve "@import" with "php" extension: css 1`] = `
-"a {
-  color: red;
-}
-"
+exports[`loader > should resolve \"@import\" with \"css\" extension 3`] = `
+[]
 `;
 
-exports[`loader should resolve "@import" with "php" extension: errors 1`] = `[]`;
-
-exports[`loader should resolve "@import" with "php" extension: warnings 1`] = `[]`;
-
-exports[`loader should resolve "@import" without "less" extension: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`loader > should resolve \"@import\" with \"less\" extension 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
 `;
 
-exports[`loader should resolve "@import" without "less" extension: errors 1`] = `[]`;
-
-exports[`loader should resolve "@import" without "less" extension: warnings 1`] = `[]`;
-
-exports[`loader should resolve absolute path with alias: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`loader > should resolve \"@import\" with \"less\" extension 2`] = `
+[]
 `;
 
-exports[`loader should resolve absolute path with alias: errors 1`] = `[]`;
-
-exports[`loader should resolve absolute path with alias: warnings 1`] = `[]`;
-
-exports[`loader should resolve absolute path: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`loader > should resolve \"@import\" with \"less\" extension 3`] = `
+[]
 `;
 
-exports[`loader should resolve absolute path: errors 1`] = `[]`;
-
-exports[`loader should resolve absolute path: warnings 1`] = `[]`;
-
-exports[`loader should resolve aliases in different variants: css 1`] = `
-".img {
-  background: url(some/img.jpg);
-}
-.img2 {
-  background: url(../img.jpg);
-}
-.box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-body {
-  background: url(assets/resources/circle.svg);
-}
-.abs {
-  background: url(assets/resources/circle.svg);
-}
-"
+exports[`loader > should resolve \"@import\" with \"php\" extension 1`] = `
+"a {\\n  color: red;\\n}\\n"
 `;
 
-exports[`loader should resolve aliases in different variants: errors 1`] = `[]`;
-
-exports[`loader should resolve aliases in different variants: warnings 1`] = `[]`;
-
-exports[`loader should resolve all imports from node_modules using webpack's resolver: css 1`] = `
-"@import "some/css.css";
-@import "some/css.css";
-#it-works {
-  color: hotpink;
-}
-.modules-dir-some-module,
-#it-works {
-  background: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
+exports[`loader > should resolve \"@import\" with \"php\" extension 2`] = `
+[]
 `;
 
-exports[`loader should resolve all imports from node_modules using webpack's resolver: errors 1`] = `[]`;
-
-exports[`loader should resolve all imports from node_modules using webpack's resolver: warnings 1`] = `[]`;
-
-exports[`loader should resolve all imports from the given paths using Less resolver: css 1`] = `
-".modules-dir-some-module {
-  color: hotpink;
-}
-"
+exports[`loader > should resolve \"@import\" with \"php\" extension 3`] = `
+[]
 `;
 
-exports[`loader should resolve all imports from the given paths using Less resolver: errors 1`] = `[]`;
-
-exports[`loader should resolve all imports from the given paths using Less resolver: warnings 1`] = `[]`;
-
-exports[`loader should resolve all imports: css 1`] = `
-"@import "css.css";
-@import "css.css";
-.classical-css,
-#it-works {
-  background: hotpink;
-}
-.box,
-#it-works {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-#it-works {
-  margin: 10px;
-}
-"
+exports[`loader > should resolve \"@import\" without \"less\" extension 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
 `;
 
-exports[`loader should resolve all imports: errors 1`] = `[]`;
-
-exports[`loader should resolve all imports: warnings 1`] = `[]`;
-
-exports[`loader should resolve in working directory: css 1`] = `
-".test {
-  color: red;
-}
-a {
-  color: red;
-}
-body {
-  margin: 0;
-}
-"
+exports[`loader > should resolve \"@import\" without \"less\" extension 2`] = `
+[]
 `;
 
-exports[`loader should resolve in working directory: errors 1`] = `[]`;
-
-exports[`loader should resolve in working directory: warnings 1`] = `[]`;
-
-exports[`loader should resolve nested imports: css 1`] = `
-".top-import {
-  background: red;
-}
-.nested-import {
-  background: coral;
-}
-"
+exports[`loader > should resolve \"@import\" without \"less\" extension 3`] = `
+[]
 `;
 
-exports[`loader should resolve nested imports: errors 1`] = `[]`;
-
-exports[`loader should resolve nested imports: warnings 1`] = `[]`;
-
-exports[`loader should resolve nested package #2: css 1`] = `
-".less-package-1-nested {
-  background: red;
-}
-.less-package-2 {
-  background: red;
-}
-.top {
-  color: red;
-}
-"
+exports[`loader > should resolve absolute path 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
 `;
 
-exports[`loader should resolve nested package #2: errors 1`] = `[]`;
-
-exports[`loader should resolve nested package #2: warnings 1`] = `[]`;
-
-exports[`loader should resolve nested package: css 1`] = `
-".less-package-1-nested {
-  background: red;
-}
-.less-package-2 {
-  background: red;
-}
-"
+exports[`loader > should resolve absolute path 2`] = `
+[]
 `;
 
-exports[`loader should resolve nested package: errors 1`] = `[]`;
-
-exports[`loader should resolve nested package: warnings 1`] = `[]`;
-
-exports[`loader should resolve non-less import with alias: css 1`] = `
-".some-file {
-  background: hotpink;
-}
-"
+exports[`loader > should resolve absolute path 3`] = `
+[]
 `;
 
-exports[`loader should resolve non-less import with alias: errors 1`] = `[]`;
-
-exports[`loader should resolve non-less import with alias: warnings 1`] = `[]`;
-
-exports[`loader should resolve the "less" field from the "exports" field from "package.json": css 1`] = `
-".load-me {
-  color: red;
-}
-"
+exports[`loader > should resolve absolute path with alias 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
 `;
 
-exports[`loader should resolve the "less" field from the "exports" field from "package.json": errors 1`] = `[]`;
-
-exports[`loader should resolve the "less" field from the "exports" field from "package.json": warnings 1`] = `[]`;
-
-exports[`loader should resolve unresolved url with alias: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`loader > should resolve absolute path with alias 2`] = `
+[]
 `;
 
-exports[`loader should resolve unresolved url with alias: errors 1`] = `[]`;
+exports[`loader > should resolve absolute path with alias 3`] = `
+[]
+`;
 
-exports[`loader should resolve unresolved url with alias: warnings 1`] = `[]`;
+exports[`loader > should resolve aliases in different variants 1`] = `
+".img {\\n  background: url(some/img.jpg);\\n}\\n.img2 {\\n  background: url(../img.jpg);\\n}\\n.box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\nbody {\\n  background: url(assets/resources/circle.svg);\\n}\\n.abs {\\n  background: url(assets/resources/circle.svg);\\n}\\n"
+`;
 
-exports[`loader should throw an error: errors 1`] = `
+exports[`loader > should resolve aliases in different variants 2`] = `
+[]
+`;
+
+exports[`loader > should resolve aliases in different variants 3`] = `
+[]
+`;
+
+exports[`loader > should resolve all imports 1`] = `
+"@import \\"css.css\\";\\n@import \\"css.css\\";\\n.classical-css,\\n#it-works {\\n  background: hotpink;\\n}\\n.box,\\n#it-works {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
+`;
+
+exports[`loader > should resolve all imports 2`] = `
+[]
+`;
+
+exports[`loader > should resolve all imports 3`] = `
+[]
+`;
+
+exports[`loader > should resolve all imports from node_modules using webpack's resolver 1`] = `
+"@import \\"some/css.css\\";\\n@import \\"some/css.css\\";\\n#it-works {\\n  color: hotpink;\\n}\\n.modules-dir-some-module,\\n#it-works {\\n  background: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
+`;
+
+exports[`loader > should resolve all imports from node_modules using webpack's resolver 2`] = `
+[]
+`;
+
+exports[`loader > should resolve all imports from node_modules using webpack's resolver 3`] = `
+[]
+`;
+
+exports[`loader > should resolve all imports from the given paths using Less resolver 1`] = `
+".modules-dir-some-module {\\n  color: hotpink;\\n}\\n"
+`;
+
+exports[`loader > should resolve all imports from the given paths using Less resolver 2`] = `
+[]
+`;
+
+exports[`loader > should resolve all imports from the given paths using Less resolver 3`] = `
+[]
+`;
+
+exports[`loader > should resolve in working directory 1`] = `
+".test {\\n  color: red;\\n}\\na {\\n  color: red;\\n}\\nbody {\\n  margin: 0;\\n}\\n"
+`;
+
+exports[`loader > should resolve in working directory 2`] = `
+[]
+`;
+
+exports[`loader > should resolve in working directory 3`] = `
+[]
+`;
+
+exports[`loader > should resolve nested imports 1`] = `
+".top-import {\\n  background: red;\\n}\\n.nested-import {\\n  background: coral;\\n}\\n"
+`;
+
+exports[`loader > should resolve nested imports 2`] = `
+[]
+`;
+
+exports[`loader > should resolve nested imports 3`] = `
+[]
+`;
+
+exports[`loader > should resolve nested package #2 1`] = `
+".less-package-1-nested {\\n  background: red;\\n}\\n.less-package-2 {\\n  background: red;\\n}\\n.top {\\n  color: red;\\n}\\n"
+`;
+
+exports[`loader > should resolve nested package #2 2`] = `
+[]
+`;
+
+exports[`loader > should resolve nested package #2 3`] = `
+[]
+`;
+
+exports[`loader > should resolve nested package 1`] = `
+".less-package-1-nested {\\n  background: red;\\n}\\n.less-package-2 {\\n  background: red;\\n}\\n"
+`;
+
+exports[`loader > should resolve nested package 2`] = `
+[]
+`;
+
+exports[`loader > should resolve nested package 3`] = `
+[]
+`;
+
+exports[`loader > should resolve non-less import with alias 1`] = `
+".some-file {\\n  background: hotpink;\\n}\\n"
+`;
+
+exports[`loader > should resolve non-less import with alias 2`] = `
+[]
+`;
+
+exports[`loader > should resolve non-less import with alias 3`] = `
+[]
+`;
+
+exports[`loader > should resolve the \"less\" field from the \"exports\" field from \"package.json\" 1`] = `
+".load-me {\\n  color: red;\\n}\\n"
+`;
+
+exports[`loader > should resolve the \"less\" field from the \"exports\" field from \"package.json\" 2`] = `
+[]
+`;
+
+exports[`loader > should resolve the \"less\" field from the \"exports\" field from \"package.json\" 3`] = `
+[]
+`;
+
+exports[`loader > should resolve unresolved url with alias 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
+`;
+
+exports[`loader > should resolve unresolved url with alias 2`] = `
+[]
+`;
+
+exports[`loader > should resolve unresolved url with alias 3`] = `
+[]
+`;
+
+exports[`loader > should throw an error 1`] = `
+[]
+`;
+
+exports[`loader > should throw an error 2`] = `
 [
-  "ModuleBuildError: Module build failed (from \`replaced original path\`):
-",
+  "ModuleBuildError: Module build failed (from \`replaced original path\`):\\n"
 ]
 `;
 
-exports[`loader should throw an error: warnings 1`] = `[]`;
-
-exports[`loader should transform urls: css 1`] = `
-".img4 {
-  background: url(folder/img.jpg);
-}
-.img5 {
-  background: url(folder/some/img.jpg);
-}
-.img6 {
-  background: url(./img.jpg);
-}
-.img1 {
-  background: url(img.jpg);
-}
-.img2 {
-  background: url(some/img.jpg);
-}
-.img3 {
-  background: url(../img.jpg);
-}
-"
+exports[`loader > should transform urls 1`] = `
+".img4 {\\n  background: url(folder/img.jpg);\\n}\\n.img5 {\\n  background: url(folder/some/img.jpg);\\n}\\n.img6 {\\n  background: url(./img.jpg);\\n}\\n.img1 {\\n  background: url(img.jpg);\\n}\\n.img2 {\\n  background: url(some/img.jpg);\\n}\\n.img3 {\\n  background: url(../img.jpg);\\n}\\n"
 `;
 
-exports[`loader should transform urls: errors 1`] = `[]`;
-
-exports[`loader should transform urls: warnings 1`] = `[]`;
-
-exports[`loader should watch imports correctly: css 1`] = `
-"a {
-  color: red;
-}
-"
+exports[`loader > should transform urls 2`] = `
+[]
 `;
 
-exports[`loader should watch imports correctly: errors 1`] = `[]`;
-
-exports[`loader should watch imports correctly: warnings 1`] = `[]`;
-
-exports[`loader should work and have loaderContext in less plugins: css 1`] = `
-".webpackLoaderContext {
-  isDefined: true;
-}
-"
+exports[`loader > should transform urls 3`] = `
+[]
 `;
 
-exports[`loader should work and have loaderContext in less plugins: errors 1`] = `[]`;
-
-exports[`loader should work and have loaderContext in less plugins: warnings 1`] = `[]`;
-
-exports[`loader should work and logging: css 1`] = `
-"nav ul {
-  background: blue;
-}
-"
+exports[`loader > should watch imports correctly 1`] = `
+"a {\\n  color: red;\\n}\\n"
 `;
 
-exports[`loader should work and logging: errors 1`] = `[]`;
+exports[`loader > should watch imports correctly 2`] = `
+[]
+`;
 
-exports[`loader should work and logging: logs 1`] = `
+exports[`loader > should watch imports correctly 3`] = `
+[]
+`;
+
+exports[`loader > should work 1`] = `
+".box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n"
+`;
+
+exports[`loader > should work 2`] = `
+[]
+`;
+
+exports[`loader > should work 3`] = `
+[]
+`;
+
+exports[`loader > should work and have loaderContext in less plugins 1`] = `
+".webpackLoaderContext {\\n  isDefined: true;\\n}\\n"
+`;
+
+exports[`loader > should work and have loaderContext in less plugins 2`] = `
+[]
+`;
+
+exports[`loader > should work and have loaderContext in less plugins 3`] = `
+[]
+`;
+
+exports[`loader > should work and logging 1`] = `
+"nav ul {\\n  background: blue;\\n}\\n"
+`;
+
+exports[`loader > should work and logging 2`] = `
 [
   [
     {
-      "args": [
-        "WARNING: extend ' .inline' has no matches",
-      ],
       "type": "warn",
+      "args": [
+        "WARNING: extend ' .inline' has no matches"
+      ]
     },
     {
-      "args": [
-        "The file undefined was skipped because it was not found and the import was marked optional.",
-      ],
       "type": "log",
-    },
-  ],
+      "args": [
+        "The file undefined was skipped because it was not found and the import was marked optional."
+      ]
+    }
+  ]
 ]
 `;
 
-exports[`loader should work and logging: warnings 1`] = `[]`;
-
-exports[`loader should work and respect the 'resolve.byDependency.less' option: css 1`] = `
-".a {
-  color: red;
-}
-.b {
-  color: red;
-}
-"
+exports[`loader > should work and logging 3`] = `
+[]
 `;
 
-exports[`loader should work and respect the 'resolve.byDependency.less' option: errors 1`] = `[]`;
-
-exports[`loader should work and respect the 'resolve.byDependency.less' option: warnings 1`] = `[]`;
-
-exports[`loader should work lessOptions.relativeUrls is false: css 1`] = `
-".top-import {
-  background: red;
-}
-.img4 {
-  background: url(img.jpg);
-}
-.img5 {
-  background: url(some/img.jpg);
-}
-.img6 {
-  background: url(../img.jpg);
-}
-"
+exports[`loader > should work and logging 4`] = `
+[]
 `;
 
-exports[`loader should work lessOptions.relativeUrls is false: errors 1`] = `[]`;
-
-exports[`loader should work lessOptions.relativeUrls is false: warnings 1`] = `[]`;
-
-exports[`loader should work lessOptions.relativeUrls is true: css 1`] = `
-".top-import {
-  background: red;
-}
-.img4 {
-  background: url(folder/img.jpg);
-}
-.img5 {
-  background: url(folder/some/img.jpg);
-}
-.img6 {
-  background: url(./img.jpg);
-}
-"
+exports[`loader > should work and respect the 'resolve.byDependency.less' option 1`] = `
+".a {\\n  color: red;\\n}\\n.b {\\n  color: red;\\n}\\n"
 `;
 
-exports[`loader should work lessOptions.relativeUrls is true: errors 1`] = `[]`;
-
-exports[`loader should work lessOptions.relativeUrls is true: warnings 1`] = `[]`;
-
-exports[`loader should work third-party plugins as fileLoader: css 1`] = `
-".file-loader {
-  background: coral;
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 500;
-  src: url(https://fonts.gstatic.com/s/roboto/v29/KFOlCnqEu92Fr1MmEU9fBBc9.ttf) format('truetype');
-}
-.modules-dir-scope-module {
-  color: hotpink;
-}
-"
+exports[`loader > should work and respect the 'resolve.byDependency.less' option 2`] = `
+[]
 `;
 
-exports[`loader should work third-party plugins as fileLoader: errors 1`] = `[]`;
-
-exports[`loader should work third-party plugins as fileLoader: warnings 1`] = `[]`;
-
-exports[`loader should work with a package with "sass" and "exports" fields and a custom condition (theme1): css 1`] = `
-".load-me {
-  color: red;
-}
-"
+exports[`loader > should work and respect the 'resolve.byDependency.less' option 3`] = `
+[]
 `;
 
-exports[`loader should work with a package with "sass" and "exports" fields and a custom condition (theme1): errors 1`] = `[]`;
-
-exports[`loader should work with a package with "sass" and "exports" fields and a custom condition (theme1): warnings 1`] = `[]`;
-
-exports[`loader should work with a package with "sass" and "exports" fields and a custom condition (theme2): css 1`] = `
-".load-me {
-  color: blue;
-}
-"
+exports[`loader > should work lessOptions.relativeUrls is false 1`] = `
+".top-import {\\n  background: red;\\n}\\n.img4 {\\n  background: url(img.jpg);\\n}\\n.img5 {\\n  background: url(some/img.jpg);\\n}\\n.img6 {\\n  background: url(../img.jpg);\\n}\\n"
 `;
 
-exports[`loader should work with a package with "sass" and "exports" fields and a custom condition (theme2): errors 1`] = `[]`;
-
-exports[`loader should work with a package with "sass" and "exports" fields and a custom condition (theme2): warnings 1`] = `[]`;
-
-exports[`loader should work: css 1`] = `
-".box {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-"
+exports[`loader > should work lessOptions.relativeUrls is false 2`] = `
+[]
 `;
 
-exports[`loader should work: errors 1`] = `[]`;
+exports[`loader > should work lessOptions.relativeUrls is false 3`] = `
+[]
+`;
 
-exports[`loader should work: warnings 1`] = `[]`;
+exports[`loader > should work lessOptions.relativeUrls is true 1`] = `
+".top-import {\\n  background: red;\\n}\\n.img4 {\\n  background: url(folder/img.jpg);\\n}\\n.img5 {\\n  background: url(folder/some/img.jpg);\\n}\\n.img6 {\\n  background: url(./img.jpg);\\n}\\n"
+`;
+
+exports[`loader > should work lessOptions.relativeUrls is true 2`] = `
+[]
+`;
+
+exports[`loader > should work lessOptions.relativeUrls is true 3`] = `
+[]
+`;
+
+exports[`loader > should work third-party plugins as fileLoader 1`] = `
+".file-loader {\\n  background: coral;\\n}\\n@font-face {\\n  font-family: 'Roboto';\\n  font-style: normal;\\n  font-weight: 500;\\n  src: url(https://fonts.gstatic.com/s/roboto/v29/KFOlCnqEu92Fr1MmEU9fBBc9.ttf) format('truetype');\\n}\\n.modules-dir-scope-module {\\n  color: hotpink;\\n}\\n"
+`;
+
+exports[`loader > should work third-party plugins as fileLoader 2`] = `
+[]
+`;
+
+exports[`loader > should work third-party plugins as fileLoader 3`] = `
+[]
+`;
+
+exports[`loader > should work with a package with \"sass\" and \"exports\" fields and a custom condition (theme1) 1`] = `
+".load-me {\\n  color: red;\\n}\\n"
+`;
+
+exports[`loader > should work with a package with \"sass\" and \"exports\" fields and a custom condition (theme1) 2`] = `
+[]
+`;
+
+exports[`loader > should work with a package with \"sass\" and \"exports\" fields and a custom condition (theme1) 3`] = `
+[]
+`;
+
+exports[`loader > should work with a package with \"sass\" and \"exports\" fields and a custom condition (theme2) 1`] = `
+".load-me {\\n  color: blue;\\n}\\n"
+`;
+
+exports[`loader > should work with a package with \"sass\" and \"exports\" fields and a custom condition (theme2) 2`] = `
+[]
+`;
+
+exports[`loader > should work with a package with \"sass\" and \"exports\" fields and a custom condition (theme2) 3`] = `
+[]
+`;

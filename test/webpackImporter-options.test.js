@@ -1,3 +1,6 @@
+import assert from "node:assert";
+import { describe, it } from "node:test";
+
 import {
   compile,
   getCodeFromBundle,
@@ -5,23 +8,23 @@ import {
   getCompiler,
   getErrors,
   getWarnings,
-} from "./helpers";
+} from "./helpers/index.js";
 
 describe('"webpackImporter" option', () => {
-  it("should work when value is not specify", async () => {
+  it("should work when value is not specify", async (t) => {
     const testId = "./import-webpack.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should work when value is "true"', async () => {
+  it('should work when value is "true"', async (t) => {
     const testId = "./import-webpack.less";
     const compiler = getCompiler(testId, {
       webpackImporter: true,
@@ -30,13 +33,13 @@ describe('"webpackImporter" option', () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should work when value is "only"', async () => {
+  it('should work when value is "only"', async (t) => {
     const testId = "./import-webpack.less";
     const compiler = getCompiler(testId, {
       webpackImporter: "only",
@@ -45,13 +48,13 @@ describe('"webpackImporter" option', () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should work when value is "false"', async () => {
+  it('should work when value is "false"', async (t) => {
     const testId = "./import.less";
     const compiler = getCompiler(testId, {
       webpackImporter: false,
@@ -60,20 +63,20 @@ describe('"webpackImporter" option', () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should throw an error on webpack import when value is "false"', async () => {
+  it('should throw an error on webpack import when value is "false"', async (t) => {
     const testId = "./import-webpack.less";
     const compiler = getCompiler(testId, {
       webpackImporter: false,
     });
     const stats = await compile(compiler);
 
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 });

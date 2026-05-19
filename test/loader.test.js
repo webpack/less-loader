@@ -1,8 +1,11 @@
+import assert from "node:assert";
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 
 import lessPluginGlob from "less-plugin-glob";
-import CustomImportPlugin from "./fixtures/folder/customImportPlugin";
 
 import {
   compile,
@@ -12,55 +15,57 @@ import {
   getErrors,
   getWarnings,
   validateDependencies,
-} from "./helpers";
+} from "./helpers/index.js";
 
-const CustomFileLoaderPlugin = require("./fixtures/folder/customFileLoaderPlugin");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+
+const CustomFileLoaderPlugin = require("./fixtures/folder/customFileLoaderPlugin.cjs");
+const CustomImportPlugin = require("./fixtures/folder/customImportPlugin.cjs");
 
 const nodeModulesPath = path.resolve(__dirname, "fixtures", "node_modules");
 
-jest.setTimeout(30000);
-
-describe("loader", () => {
-  it("should work", async () => {
+describe("loader", { timeout: 30000 }, () => {
+  it("should work", async (t) => {
     const testId = "./basic.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should compile data-uri function", async () => {
+  it("should compile data-uri function", async (t) => {
     const testId = "./data-uri.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should transform urls", async () => {
+  it("should transform urls", async (t) => {
     const testId = "./url-path.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should install plugins", async () => {
+  it("should install plugins", async (t) => {
     let pluginInstalled = false;
     // Using prototype inheritance here since Less plugins are usually instances of classes
     // See https://github.com/webpack/less-loader/issues/181#issuecomment-288220113
@@ -78,14 +83,14 @@ describe("loader", () => {
     });
     const stats = await compile(compiler);
 
-    expect(plugins).toHaveLength(1);
-    expect(sourceMap).toEqual({ outputSourceFiles: false });
-    expect(pluginInstalled).toBe(true);
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(plugins.length, 1);
+    assert.deepStrictEqual(sourceMap, { outputSourceFiles: false });
+    assert.strictEqual(pluginInstalled, true);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should import from plugins", async () => {
+  it("should import from plugins", async (t) => {
     const testId = "./empty.less";
     const compiler = getCompiler(testId, {
       lessOptions: {
@@ -100,13 +105,13 @@ describe("loader", () => {
       },
     });
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should work third-party plugins as fileLoader", async () => {
+  it("should work third-party plugins as fileLoader", async (t) => {
     const testId = "./file-load.less";
     const compiler = getCompiler(testId, {
       lessOptions: {
@@ -121,13 +126,13 @@ describe("loader", () => {
       },
     });
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should not alter the original options object", async () => {
+  it("should not alter the original options object", async (t) => {
     const options = { lessOptions: { plugins: [] } };
     const copiedOptions = { ...options };
 
@@ -135,38 +140,38 @@ describe("loader", () => {
     const compiler = getCompiler(testId, options);
     const stats = await compile(compiler);
 
-    expect(copiedOptions).toEqual(options);
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.deepStrictEqual(copiedOptions, options);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve all imports", async () => {
+  it("should resolve all imports", async (t) => {
     const testId = "./import.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve nested imports", async () => {
+  it("should resolve nested imports", async (t) => {
     const testId = "./import-nested.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should work lessOptions.relativeUrls is true", async () => {
+  it("should work lessOptions.relativeUrls is true", async (t) => {
     const testId = "./import-relative.less";
     const compiler = getCompiler(testId, {
       lessOptions: {
@@ -181,13 +186,13 @@ describe("loader", () => {
       },
     });
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should work lessOptions.relativeUrls is false", async () => {
+  it("should work lessOptions.relativeUrls is false", async (t) => {
     const testId = "./import-relative.less";
     const compiler = getCompiler(testId, {
       lessOptions: {
@@ -202,26 +207,26 @@ describe("loader", () => {
       },
     });
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve all imports from node_modules using webpack's resolver", async () => {
+  it("should resolve all imports from node_modules using webpack's resolver", async (t) => {
     const testId = "./import-webpack.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve aliases in different variants", async () => {
+  it("should resolve aliases in different variants", async (t) => {
     const testId = "./import-webpack-aliases.less";
     const compiler = getCompiler(
       testId,
@@ -239,13 +244,13 @@ describe("loader", () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve all imports from the given paths using Less resolver", async () => {
+  it("should resolve all imports from the given paths using Less resolver", async (t) => {
     const testId = "./import-paths.less";
     const compiler = getCompiler(testId, {
       lessOptions: {
@@ -256,13 +261,13 @@ describe("loader", () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should not to disable webpack's resolver by passing an empty paths array", async () => {
+  it("should not to disable webpack's resolver by passing an empty paths array", async (t) => {
     const testId = "./import-webpack-aliases.less";
     const compiler = getCompiler(
       testId,
@@ -284,13 +289,13 @@ describe("loader", () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should prefer-relative imports correctly", async () => {
+  it("should prefer-relative imports correctly", async (t) => {
     const testId = "./import-prefer-relative.less";
     const compiler = getCompiler(
       testId,
@@ -307,71 +312,57 @@ describe("loader", () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should not try to resolve CSS imports with URLs", async () => {
+  it("should not try to resolve CSS imports with URLs", async (t) => {
     const testId = "./import-url.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  // eslint-disable-next-line jest/no-commented-out-tests
-  // it('should delegate resolving (LESS) imports with URLs to "less" package', async () => {
-  //   const testId = "./import-keyword-url.less";
-  //   const compiler = getCompiler(testId);
-  //   const stats = await compile(compiler);
-  //   const codeFromBundle = getCodeFromBundle(stats, compiler);
-  //   const codeFromLess = await getCodeFromLess(testId);
-  //
-  //   expect(codeFromBundle.css).toBe(codeFromLess.css);
-  //   expect(codeFromBundle.css).toMatchSnapshot("css");
-  //   expect(getWarnings(stats)).toMatchSnapshot("warnings");
-  //   expect(getErrors(stats)).toMatchSnapshot("errors");
-  // });
-
-  it("should allow to import non-less files", async () => {
+  it("should allow to import non-less files", async (t) => {
     const testId = "./import-non-less.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should provide a useful error message if the import could not be found", async () => {
+  it("should provide a useful error message if the import could not be found", async (t) => {
     const testId = "./error-import-not-existing.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
 
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should provide a useful error message if there was a syntax error", async () => {
+  it("should provide a useful error message if there was a syntax error", async (t) => {
     const testId = "./error-syntax.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
 
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should be able to import a file with an absolute path", async () => {
+  it("should be able to import a file with an absolute path", async (t) => {
     const importedFilePath = path.resolve(
       __dirname,
       "fixtures",
@@ -389,12 +380,12 @@ describe("loader", () => {
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
 
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should add all resolved imports as dependencies", async () => {
+  it("should add all resolved imports as dependencies", async (t) => {
     const testId = "./import.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
@@ -409,13 +400,13 @@ describe("loader", () => {
     ];
 
     for (const fixture of fixtures) {
-      expect(fileDependencies.has(fixture)).toBe(true);
+      assert.strictEqual(fileDependencies.has(fixture), true);
     }
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should add all resolved imports as dependencies, including aliased ones", async () => {
+  it("should add all resolved imports as dependencies, including aliased ones", async (t) => {
     const testId = "./import-webpack-alias.less";
     const compiler = getCompiler(
       testId,
@@ -445,13 +436,13 @@ describe("loader", () => {
     ];
 
     for (const fixture of fixtures) {
-      expect(fileDependencies.has(fixture)).toBe(true);
+      assert.strictEqual(fileDependencies.has(fixture), true);
     }
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should add all resolved imports as dependencies, including those from the Less resolver", async () => {
+  it("should add all resolved imports as dependencies, including those from the Less resolver", async (t) => {
     const testId = "./import-dependency.less";
     const compiler = getCompiler(testId, {
       lessOptions: {
@@ -475,13 +466,13 @@ describe("loader", () => {
     ];
 
     for (const fixture of fixtures) {
-      expect(fileDependencies.has(fixture)).toBe(true);
+      assert.strictEqual(fileDependencies.has(fixture), true);
     }
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should add a file with an error as dependency so that the watcher is triggered when the error is fixed", async () => {
+  it("should add a file with an error as dependency so that the watcher is triggered when the error is fixed", async (t) => {
     const testId = "./error-import-file-with-error.less";
     const compiler = getCompiler(testId, {
       lessOptions: {
@@ -499,13 +490,13 @@ describe("loader", () => {
     ];
 
     for (const fixture of fixtures) {
-      expect(fileDependencies.has(fixture)).toBe(true);
+      assert.strictEqual(fileDependencies.has(fixture), true);
     }
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should add all resolved imports as dependencies, including node_modules", async () => {
+  it("should add all resolved imports as dependencies, including node_modules", async (t) => {
     const testId = "./import-webpack.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
@@ -525,13 +516,13 @@ describe("loader", () => {
     ];
 
     for (const fixture of fixtures) {
-      expect(fileDependencies.has(fixture)).toBe(true);
+      assert.strictEqual(fileDependencies.has(fixture), true);
     }
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should watch imports correctly", async () => {
+  it("should watch imports correctly", async (t) => {
     const testId = "./watch.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
@@ -553,16 +544,16 @@ describe("loader", () => {
     ];
 
     for (const fixture of fixtures) {
-      expect(fileDependencies.has(fixture)).toBe(true);
+      assert.strictEqual(fileDependencies.has(fixture), true);
     }
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should get absolute path relative rootContext", async () => {
+  it("should get absolute path relative rootContext", async (t) => {
     const testId = "./import-absolute-2.less";
     const compiler = getCompiler(
       testId,
@@ -576,12 +567,12 @@ describe("loader", () => {
 
     const codeFromBundle = getCodeFromBundle(stats, compiler);
 
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve unresolved url with alias", async () => {
+  it("should resolve unresolved url with alias", async (t) => {
     const testId = "./import-absolute-3.less";
     const compiler = getCompiler(
       testId,
@@ -602,13 +593,13 @@ describe("loader", () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve absolute path", async () => {
+  it("should resolve absolute path", async (t) => {
     // Create the file with absolute path
     const file = path.resolve(__dirname, "fixtures", "generated-1.less");
     const absolutePath = path.resolve(__dirname, "fixtures", "basic.less");
@@ -621,13 +612,13 @@ describe("loader", () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve absolute path with alias", async () => {
+  it("should resolve absolute path with alias", async (t) => {
     // Create the file with absolute path
     const file = path.resolve(__dirname, "fixtures", "generated-2.less");
     const absolutePath = path.resolve(__dirname, "fixtures", "unresolved.less");
@@ -648,12 +639,12 @@ describe("loader", () => {
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
 
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve non-less import with alias", async () => {
+  it("should resolve non-less import with alias", async (t) => {
     const testId = "./import-non-less-2.less";
     const compiler = getCompiler(
       testId,
@@ -675,36 +666,13 @@ describe("loader", () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  // eslint-disable-next-line jest/no-commented-out-tests
-  // it("should not add to dependencies imports with URLs", async () => {
-  //   const testId = "./import-url-deps.less";
-  //   const compiler = getCompiler(testId);
-  //   const stats = await compile(compiler);
-  //   const codeFromBundle = getCodeFromBundle(stats, compiler);
-  //   const codeFromLess = await getCodeFromLess(testId);
-  //   const { fileDependencies } = stats.compilation;
-  //
-  //   validateDependencies(fileDependencies);
-  //
-  //   Array.from(fileDependencies).forEach((item) => {
-  //     ["http", "https"].forEach((protocol) => {
-  //       expect(item.includes(protocol)).toBe(false);
-  //     });
-  //   });
-  //
-  //   expect(codeFromBundle.css).toBe(codeFromLess.css);
-  //   expect(codeFromBundle.css).toMatchSnapshot("css");
-  //   expect(getWarnings(stats)).toMatchSnapshot("warnings");
-  //   expect(getErrors(stats)).toMatchSnapshot("errors");
-  // });
-
-  it("should add path to dependencies", async () => {
+  it("should add path to dependencies", async (t) => {
     // Create the file with absolute path
     const file = path.resolve(__dirname, "fixtures", "generated-3.less");
     const absolutePath = path.resolve(__dirname, "fixtures", "basic.less");
@@ -727,83 +695,85 @@ describe("loader", () => {
       }
     }
 
-    expect(isAddedToDependencies).toBe(true);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(isAddedToDependencies, true);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should resolve the "less" field from the "exports" field from "package.json"', async () => {
+  it('should resolve the "less" field from the "exports" field from "package.json"', async (t) => {
     const testId = "./import-package-with-exports.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should resolve "@import" without "less" extension', async () => {
+  it('should resolve "@import" without "less" extension', async (t) => {
     const testId = "./import-without-extension.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should resolve "@import" with "less" extension', async () => {
+  it('should resolve "@import" with "less" extension', async (t) => {
     const testId = "./import-without-extension.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should resolve "@import" with "css" extension', async () => {
+  it('should resolve "@import" with "css" extension', async (t) => {
     const testId = "./import-with-css-extension.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should resolve "@import" with "php" extension', async () => {
+  it('should resolve "@import" with "php" extension', async (t) => {
     const testId = "./import-with-php-extension.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should work and have loaderContext in less plugins", async () => {
+  it("should work and have loaderContext in less plugins", async (t) => {
     let contextInClass = false;
     let contextInObject = false;
 
-    class Plugin extends require("less").FileManager {
-      constructor(less, pluginManager) {
+    const less = require("less");
+
+    class Plugin extends less.FileManager {
+      constructor(lessInstance, pluginManager) {
         super();
 
         if (typeof pluginManager.webpackLoaderContext !== "undefined") {
@@ -813,13 +783,13 @@ describe("loader", () => {
     }
 
     class CustomClassPlugin {
-      install(less, pluginManager) {
-        pluginManager.addFileManager(new Plugin(less, pluginManager));
+      install(lessInstance, pluginManager) {
+        pluginManager.addFileManager(new Plugin(lessInstance, pluginManager));
       }
     }
 
     const customObjectPlugin = {
-      install(less, packageManager) {
+      install(lessInstance, packageManager) {
         if (typeof packageManager.webpackLoaderContext !== "undefined") {
           contextInObject = true;
         }
@@ -835,40 +805,40 @@ describe("loader", () => {
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
 
-    expect(contextInClass).toBe(true);
-    expect(contextInObject).toBe(true);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(contextInClass, true);
+    assert.strictEqual(contextInObject, true);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve nested package", async () => {
+  it("should resolve nested package", async (t) => {
     const testId = "./node_modules/less-package-2/index.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve nested package #2", async () => {
+  it("should resolve nested package #2", async (t) => {
     const testId = "./less-package.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should resolve in working directory", async () => {
+  it("should resolve in working directory", async (t) => {
     const oldCwd = process.cwd();
 
     process.chdir(path.resolve(__dirname, "fixtures"));
@@ -879,15 +849,15 @@ describe("loader", () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
 
     process.chdir(oldCwd);
   });
 
-  it("should work and respect the 'resolve.byDependency.less' option", async () => {
+  it("should work and respect the 'resolve.byDependency.less' option", async (t) => {
     const testId = "./by-dependency.less";
     const compiler = getCompiler(
       testId,
@@ -906,13 +876,13 @@ describe("loader", () => {
     const codeFromBundle = getCodeFromBundle(stats, compiler);
     const codeFromLess = await getCodeFromLess(testId);
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should import from glob expressions", async () => {
+  it("should import from glob expressions", async (t) => {
     const testId = "./glob.less";
     const compiler = getCompiler(testId, {
       lessOptions: {
@@ -927,22 +897,22 @@ describe("loader", () => {
       },
     });
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should emit an error", async () => {
+  it("should emit an error", async (t) => {
     const testId = "./error.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
 
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should work and logging", async () => {
+  it("should work and logging", async (t) => {
     const testId = "./logging.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
@@ -961,14 +931,14 @@ describe("loader", () => {
       }
     }
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(logs).toMatchSnapshot("logs");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(logs);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should work with a package with "sass" and "exports" fields and a custom condition (theme1)', async () => {
+  it('should work with a package with "sass" and "exports" fields and a custom condition (theme1)', async (t) => {
     const testId = "./import-package-with-exports-and-custom-condition.less";
     const compiler = getCompiler(
       testId,
@@ -989,13 +959,13 @@ describe("loader", () => {
       },
     );
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it('should work with a package with "sass" and "exports" fields and a custom condition (theme2)', async () => {
+  it('should work with a package with "sass" and "exports" fields and a custom condition (theme2)', async (t) => {
     const testId = "./import-package-with-exports-and-custom-condition.less";
     const compiler = getCompiler(
       testId,
@@ -1016,22 +986,22 @@ describe("loader", () => {
       },
     );
 
-    expect(codeFromBundle.css).toBe(codeFromLess.css);
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    assert.strictEqual(codeFromBundle.css, codeFromLess.css);
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should throw an error", async () => {
+  it("should throw an error", async (t) => {
     const testId = "./broken.less";
     const compiler = getCompiler(testId);
     const stats = await compile(compiler);
 
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 
-  it("should emit less warning as webpack warning", async () => {
+  it("should emit less warning as webpack warning", async (t) => {
     const testId = "./warn.less";
     const compiler = getCompiler(testId, {
       lessLogAsWarnOrErr: true,
@@ -1039,8 +1009,8 @@ describe("loader", () => {
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
 
-    expect(codeFromBundle.css).toMatchSnapshot("css");
-    expect(getWarnings(stats)).toMatchSnapshot("warnings");
-    expect(getErrors(stats)).toMatchSnapshot("errors");
+    t.assert.snapshot(codeFromBundle.css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
   });
 });

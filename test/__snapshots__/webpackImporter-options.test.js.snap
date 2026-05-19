@@ -1,97 +1,57 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+exports[`\"webpackImporter\" option > should throw an error on webpack import when value is \"false\" 1`] = `
+[]
+`;
 
-exports[`"webpackImporter" option should throw an error on webpack import when value is "false": errors 1`] = `
+exports[`\"webpackImporter\" option > should throw an error on webpack import when value is \"false\" 2`] = `
 [
-  "ModuleBuildError: Module build failed (from \`replaced original path\`):
-",
+  "ModuleBuildError: Module build failed (from \`replaced original path\`):\\n"
 ]
 `;
 
-exports[`"webpackImporter" option should throw an error on webpack import when value is "false": warnings 1`] = `[]`;
-
-exports[`"webpackImporter" option should work when value is "false": css 1`] = `
-"@import "css.css";
-@import "css.css";
-.classical-css,
-#it-works {
-  background: hotpink;
-}
-.box,
-#it-works {
-  color: #fe33ac;
-  border-color: #fdcdea;
-  background: url(box.png);
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-#it-works {
-  margin: 10px;
-}
-"
+exports[`\"webpackImporter\" option > should work when value is \"false\" 1`] = `
+"@import \\"css.css\\";\\n@import \\"css.css\\";\\n.classical-css,\\n#it-works {\\n  background: hotpink;\\n}\\n.box,\\n#it-works {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(box.png);\\n}\\n.box div {\\n  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
 `;
 
-exports[`"webpackImporter" option should work when value is "false": errors 1`] = `[]`;
-
-exports[`"webpackImporter" option should work when value is "false": warnings 1`] = `[]`;
-
-exports[`"webpackImporter" option should work when value is "only": css 1`] = `
-"@import "some/css.css";
-@import "some/css.css";
-#it-works {
-  color: hotpink;
-}
-.modules-dir-some-module,
-#it-works {
-  background: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
+exports[`\"webpackImporter\" option > should work when value is \"false\" 2`] = `
+[]
 `;
 
-exports[`"webpackImporter" option should work when value is "only": errors 1`] = `[]`;
-
-exports[`"webpackImporter" option should work when value is "only": warnings 1`] = `[]`;
-
-exports[`"webpackImporter" option should work when value is "true": css 1`] = `
-"@import "some/css.css";
-@import "some/css.css";
-#it-works {
-  color: hotpink;
-}
-.modules-dir-some-module,
-#it-works {
-  background: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
+exports[`\"webpackImporter\" option > should work when value is \"false\" 3`] = `
+[]
 `;
 
-exports[`"webpackImporter" option should work when value is "true": errors 1`] = `[]`;
-
-exports[`"webpackImporter" option should work when value is "true": warnings 1`] = `[]`;
-
-exports[`"webpackImporter" option should work when value is not specify: css 1`] = `
-"@import "some/css.css";
-@import "some/css.css";
-#it-works {
-  color: hotpink;
-}
-.modules-dir-some-module,
-#it-works {
-  background: hotpink;
-}
-#it-works {
-  margin: 10px;
-}
-"
+exports[`\"webpackImporter\" option > should work when value is \"only\" 1`] = `
+"@import \\"some/css.css\\";\\n@import \\"some/css.css\\";\\n#it-works {\\n  color: hotpink;\\n}\\n.modules-dir-some-module,\\n#it-works {\\n  background: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
 `;
 
-exports[`"webpackImporter" option should work when value is not specify: errors 1`] = `[]`;
+exports[`\"webpackImporter\" option > should work when value is \"only\" 2`] = `
+[]
+`;
 
-exports[`"webpackImporter" option should work when value is not specify: warnings 1`] = `[]`;
+exports[`\"webpackImporter\" option > should work when value is \"only\" 3`] = `
+[]
+`;
+
+exports[`\"webpackImporter\" option > should work when value is \"true\" 1`] = `
+"@import \\"some/css.css\\";\\n@import \\"some/css.css\\";\\n#it-works {\\n  color: hotpink;\\n}\\n.modules-dir-some-module,\\n#it-works {\\n  background: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
+`;
+
+exports[`\"webpackImporter\" option > should work when value is \"true\" 2`] = `
+[]
+`;
+
+exports[`\"webpackImporter\" option > should work when value is \"true\" 3`] = `
+[]
+`;
+
+exports[`\"webpackImporter\" option > should work when value is not specify 1`] = `
+"@import \\"some/css.css\\";\\n@import \\"some/css.css\\";\\n#it-works {\\n  color: hotpink;\\n}\\n.modules-dir-some-module,\\n#it-works {\\n  background: hotpink;\\n}\\n#it-works {\\n  margin: 10px;\\n}\\n"
+`;
+
+exports[`\"webpackImporter\" option > should work when value is not specify 2`] = `
+[]
+`;
+
+exports[`\"webpackImporter\" option > should work when value is not specify 3`] = `
+[]
+`;
