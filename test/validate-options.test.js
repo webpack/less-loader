@@ -24,7 +24,7 @@ describe("validate options", () => {
       failure: ["string"],
     },
     implementation: {
-      success: ["less"],
+      success: [require("less"), "less"],
       failure: [true, false, () => {}, []],
     },
     lessLogAsWarnOrErr: {

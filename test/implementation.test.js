@@ -9,10 +9,9 @@ import {
 
 describe('"implementation" option', () => {
   it("should work", async () => {
-    const less = (await import("less")).default;
     const testId = "./basic.less";
     const compiler = getCompiler(testId, {
-      implementation: less,
+      implementation: require("less"),
     });
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);
@@ -26,9 +25,8 @@ describe('"implementation" option', () => {
 
   it("should work when implementation option is string", async () => {
     const testId = "./basic.less";
-
     const compiler = getCompiler(testId, {
-      implementation: "less",
+      implementation: require.resolve("less"),
     });
     const stats = await compile(compiler);
     const codeFromBundle = getCodeFromBundle(stats, compiler);

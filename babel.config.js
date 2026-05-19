@@ -12,7 +12,6 @@ module.exports = (api) => {
           targets: {
             node: "18.12.0",
           },
-          exclude: ["transform-dynamic-import"],
         },
       ],
     ],
