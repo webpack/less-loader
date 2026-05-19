@@ -1,7 +1,12 @@
+import { createRequire } from "node:module";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { Volume, createFsFromVolume } from "memfs";
 import webpack from "webpack";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
 export default (fixture, loaderOptions = {}, config = {}) => {
   const fullConfig = {
@@ -21,10 +26,10 @@ export default (fixture, loaderOptions = {}, config = {}) => {
           test: /\.less$/i,
           rules: [
             {
-              loader: require.resolve("./testLoader"),
+              loader: require.resolve("./testLoader.cjs"),
             },
             {
-              loader: path.resolve(__dirname, "../../src"),
+              loader: path.resolve(__dirname, "../../dist/cjs.js"),
               options: loaderOptions || {},
             },
           ],

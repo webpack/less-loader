@@ -1,42 +1,35 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`"additionalData" option should as function: css 1`] = `
-"/* RelativePath: additional-data.less; */
-.background {
-  color: coral;
-}
-.custom-class {
-  color: red;
-}
-"
+exports[`\"additionalData\" option > should as function 1`] = `
+"/* RelativePath: additional-data.less; */\\n.background {\\n  color: coral;\\n}\\n.custom-class {\\n  color: red;\\n}\\n"
 `;
 
-exports[`"additionalData" option should as function: errors 1`] = `[]`;
-
-exports[`"additionalData" option should as function: warnings 1`] = `[]`;
-
-exports[`"additionalData" option should work as async function: css 1`] = `
-"/* RelativePath: additional-data.less; */
-.background {
-  color: coral;
-}
-.custom-class {
-  color: red;
-}
-"
+exports[`\"additionalData\" option > should as function 2`] = `
+[]
 `;
 
-exports[`"additionalData" option should work as async function: errors 1`] = `[]`;
-
-exports[`"additionalData" option should work as async function: warnings 1`] = `[]`;
-
-exports[`"additionalData" option should work as string: css 1`] = `
-".background {
-  color: coral;
-}
-"
+exports[`\"additionalData\" option > should as function 3`] = `
+[]
 `;
 
-exports[`"additionalData" option should work as string: errors 1`] = `[]`;
+exports[`\"additionalData\" option > should work as async function 1`] = `
+"/* RelativePath: additional-data.less; */\\n.background {\\n  color: coral;\\n}\\n.custom-class {\\n  color: red;\\n}\\n"
+`;
 
-exports[`"additionalData" option should work as string: warnings 1`] = `[]`;
+exports[`\"additionalData\" option > should work as async function 2`] = `
+[]
+`;
+
+exports[`\"additionalData\" option > should work as async function 3`] = `
+[]
+`;
+
+exports[`\"additionalData\" option > should work as string 1`] = `
+".background {\\n  color: coral;\\n}\\n"
+`;
+
+exports[`\"additionalData\" option > should work as string 2`] = `
+[]
+`;
+
+exports[`\"additionalData\" option > should work as string 3`] = `
+[]
+`;

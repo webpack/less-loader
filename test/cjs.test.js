@@ -1,8 +1,14 @@
-import src from "../src";
-import cjs from "../src/cjs";
+import assert from "node:assert";
+import { createRequire } from "node:module";
+import { describe, it } from "node:test";
+
+const require = createRequire(import.meta.url);
+
+const cjs = require("../dist/cjs.js");
+const src = require("../dist/index.js");
 
 describe("cjs", () => {
   it("should exported", () => {
-    expect(cjs).toEqual(src);
+    assert.strictEqual(cjs, src.default);
   });
 });

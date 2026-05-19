@@ -1,18 +1,17 @@
 import Module from "node:module";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const parentModule = module;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default (code) => {
   const resource = "test.js";
-  const module = new Module(resource, parentModule);
+  const m = new Module(resource);
 
-  module.paths = Module._nodeModulePaths(
-    path.resolve(__dirname, "../fixtures"),
-  );
-  module.filename = resource;
+  m.paths = Module._nodeModulePaths(path.resolve(__dirname, "../fixtures"));
+  m.filename = resource;
 
-  module._compile(code, resource);
+  m._compile(code, resource);
 
-  return module.exports;
+  return m.exports;
 };

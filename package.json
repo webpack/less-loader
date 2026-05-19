@@ -38,11 +38,11 @@
     "fix:js": "npm run lint:js -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
     "fix": "npm-run-all -l fix:js fix:prettier",
-    "test:only": "cross-env NODE_ENV=test jest",
-    "test:watch": "npm run test:only -- --watch",
-    "test:coverage": "npm run test:only -- --collectCoverageFrom=\"src/**/*.js\" --coverage",
-    "pretest": "npm run lint",
-    "test": "npm run test:coverage",
+    "test:base": "node --import ./test/setup-snapshots.js --test --test-force-exit --test-reporter=spec --test-reporter-destination=stdout \"test/**/*.test.js\"",
+    "test:watch": "npm run test:base -- --watch",
+    "test:coverage": "npm run test:base -- --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=coverage.lcov --test-coverage-include=\"src/**/*.js\"",
+    "pretest": "npm-run-all -l lint build",
+    "test": "npm run test:base",
     "prepare": "husky && npm run build",
     "version": "changeset version",
     "release": "npm run build && changeset publish"
@@ -55,7 +55,6 @@
     "@changesets/get-github-info": "^0.8.0",
     "@commitlint/cli": "^18.6.1",
     "@commitlint/config-conventional": "^18.6.2",
-    "babel-jest": "^30.0.0",
     "cross-env": "^7.0.3",
     "cspell": "^8.10.0",
     "del": "^7.1.0",
@@ -63,7 +62,6 @@
     "eslint": "^9.32.0",
     "eslint-config-webpack": "^4.5.1",
     "husky": "^9.1.3",
-    "jest": "^30.0.0",
     "less": "^4.6.3",
     "less-plugin-glob": "^3.0.0",
     "lint-staged": "^15.2.7",
@@ -87,6 +85,6 @@
     }
   },
   "engines": {
-    "node": ">= 18.12.0"
+    "node": ">= 22.11.0"
   }
 }

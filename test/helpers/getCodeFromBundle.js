@@ -1,6 +1,6 @@
 import vm from "node:vm";
 
-import readAsset from "./readAsset";
+import readAsset from "./readAsset.js";
 
 function getCodeFromBundle(stats, compiler, asset) {
   let code = null;
