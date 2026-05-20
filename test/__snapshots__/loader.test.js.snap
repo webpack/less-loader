@@ -475,7 +475,9 @@ exports[`loader > should work and have loaderContext in less plugins 1`] = `
 `;
 
 exports[`loader > should work and have loaderContext in less plugins 2`] = `
-[]
+[
+  "ModuleWarning: Module Warning (from \`replaced original path\`):\\nDEPRECATED WARNING: The @plugin directive is deprecated and will be replaced in Less 5.x. Use --plugin CLI option or the programmatic plugin API instead. in /test/fixtures/basic-plugins-2.less on line 1, column 1:"
+]
 `;
 
 exports[`loader > should work and have loaderContext in less plugins 3`] = `
@@ -490,12 +492,6 @@ exports[`loader > should work and logging 2`] = `
 [
   [
     {
-      "type": "warn",
-      "args": [
-        "WARNING: extend ' .inline' has no matches"
-      ]
-    },
-    {
       "type": "log",
       "args": [
         "The file undefined was skipped because it was not found and the import was marked optional."
@@ -506,7 +502,9 @@ exports[`loader > should work and logging 2`] = `
 `;
 
 exports[`loader > should work and logging 3`] = `
-[]
+[
+  "ModuleWarning: Module Warning (from \`replaced original path\`):\\nWARNING: extend ' .inline' has no matches"
+]
 `;
 
 exports[`loader > should work and logging 4`] = `

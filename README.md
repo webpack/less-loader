@@ -429,7 +429,7 @@ Type:
 type lessLogAsWarnOrErr = boolean;
 ```
 
-Default: `false`
+Default: `true`
 
 `Less` warnings and errors will be treated as webpack warnings and errors, instead of being logged silently.
 
@@ -441,7 +441,7 @@ div {
 }
 ```
 
-If `lessLogAsWarnOrErr` is set to `false` it will be just a log and webpack will compile successfully, but if you set this option to `true` webpack will compile fail with a warning(or error), and can break the build if configured accordingly.
+If `lessLogAsWarnOrErr` is set to `false` it will be just a log and webpack will compile successfully, but if you leave the default value (or set this option to `true`) webpack will compile fail with a warning(or error), and can break the build if configured accordingly.
 
 **webpack.config.js**
 
