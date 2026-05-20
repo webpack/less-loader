@@ -45,7 +45,6 @@
     "lint": "npm-run-all -l -p \"lint:**\" && npm run fmt:check",
     "lint:code": "eslint --cache .",
     "lint:spelling": "cspell --cache --no-must-find-files --quiet \"**/*.*\"",
-    "lint:types": "tsc --pretty --noEmit",
     "fmt": "npm run fmt:check -- --write",
     "fmt:check": "prettier --list-different --cache --ignore-unknown .",
     "fix": "npm run fix:code && npm run fmt",
@@ -53,7 +52,7 @@
     "pretest": "npm run lint",
     "test": "npm run test:base",
     "test:base": "node --import ./test/setup-snapshots.js --test --test-force-exit --test-reporter=dot --test-reporter-destination=stdout --experimental-test-module-mocks",
-    "test:coverage": "npm run test:base -- --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=coverage.lcov --test-coverage-include=\"src/**/*.test.js\"",
+    "test:coverage": "npm run test:base -- --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=coverage.lcov --test-coverage-include=\"src/**/*.js\"",
     "prepare": "husky && npm run build",
     "version": "changeset version",
     "release": "npm run build && changeset publish"
