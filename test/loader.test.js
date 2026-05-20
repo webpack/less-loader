@@ -52,6 +52,28 @@ describe("loader", { timeout: 30000 }, () => {
     t.assert.snapshot(getErrors(stats));
   });
 
+  it("should track files loaded synchronously by data-uri as dependencies", async () => {
+    const testId = "./data-uri.less";
+    const compiler = getCompiler(testId);
+    const stats = await compile(compiler);
+    const { fileDependencies } = stats.compilation;
+
+    validateDependencies(fileDependencies);
+
+    const fixtures = [
+      path.resolve(__dirname, "fixtures", "data-uri.less"),
+      path.resolve(__dirname, "fixtures", "resources", "circle.svg"),
+    ];
+
+    for (const fixture of fixtures) {
+      assert.strictEqual(
+        fileDependencies.has(fixture),
+        true,
+        `Expected ${fixture} to be tracked as a file dependency`,
+      );
+    }
+  });
+
   it("should transform urls", async (t) => {
     const testId = "./url-path.less";
     const compiler = getCompiler(testId);

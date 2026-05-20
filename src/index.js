@@ -44,7 +44,11 @@ async function lessLoader(source) {
     return;
   }
 
-  const lessOptions = getLessOptions(this, options, implementation);
+  const { lessOptions, pendingDependencyTasks } = getLessOptions(
+    this,
+    options,
+    implementation,
+  );
   const useSourceMap =
     typeof options.sourceMap === "boolean" ? options.sourceMap : this.sourceMap;
 
@@ -111,6 +115,10 @@ async function lessLoader(source) {
       this.addDependency(path.normalize(lessError.filename));
     }
 
+    // Wait for any pending sync-load dependency tracking so the failed
+    // build still snapshots the files it touched.
+    await Promise.all(pendingDependencyTasks);
+
     callback(errorFactory(lessError));
 
     return;
@@ -121,6 +129,10 @@ async function lessLoader(source) {
     delete lessOptions.pluginManager.webpackLoaderContext;
     delete lessOptions.pluginManager;
   }
+
+  // Ensure dependencies for any synchronously loaded resources (e.g.
+  // `data-uri()`, `@plugin`) are tracked before the loader completes.
+  await Promise.all(pendingDependencyTasks);
 
   const { css, imports } = result;
 
