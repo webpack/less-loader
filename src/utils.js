@@ -76,9 +76,14 @@ const MODULE_REQUEST_REGEX = /^[^?]*~/;
  *
  * @param {LoaderContext} loaderContext
  * @param {Less} implementation
+ * @param {Array<Promise<void>>} pendingDependencyTasks
  * @returns {LessPlugin}
  */
-function createWebpackLessPlugin(loaderContext, implementation) {
+function createWebpackLessPlugin(
+  loaderContext,
+  implementation,
+  pendingDependencyTasks,
+) {
   const lessOptions =
     /** @type {LessLoaderOptions} */
     (loaderContext.getOptions());
@@ -108,16 +113,72 @@ function createWebpackLessPlugin(loaderContext, implementation) {
       return true;
     }
 
-    // Sync resolving is used at least by the `data-uri` function.
-    // This file manager doesn't know how to do it, so let's delegate it
-    // to the default file manager of Less.
-    // We could probably use loaderContext.resolveSync, but it's deprecated,
-    // see https://webpack.js.org/api/loaders/#this-resolvesync
+    // Sync loading is used by `data-uri()` and any custom Less function
+    // (including those installed via `@plugin`). Webpack doesn't expose a
+    // sync resolver, so we fulfil the sync read by delegating to Less's
+    // default file manager (which can only handle native filesystem paths)
+    // and, in parallel, kick off an async webpack resolve so the loaded
+    // file is tracked as a webpack file dependency. Without this, webpack's
+    // persistent cache won't invalidate when a sync-loaded file changes.
+    // See https://github.com/webpack/less-loader/issues/492.
     /**
      * @returns {boolean}
      */
     supportsSync() {
-      return false;
+      return true;
+    }
+
+    /**
+     * @param {string} filename
+     * @param {string} currentDirectory
+     * @param {{ [key: string]: unknown }} options
+     * @param {unknown} environment
+     * @returns {LoadFileResult}
+     */
+    loadFileSync(filename, currentDirectory, options, environment) {
+      // The default Less `loadFileSync` internally dispatches to
+      // `this.loadFile` with `options.syncImport = true`. Because we
+      // override `loadFile` (async), dynamic dispatch would land back in
+      // our async version and break the sync contract. Invoke the parent
+      // `loadFile` directly with the sync flag instead.
+      const result = super.loadFile(
+        filename,
+        currentDirectory,
+        { ...options, syncImport: true },
+        environment,
+      );
+
+      if (result && result.filename) {
+        loaderContext.addDependency(
+          path.normalize(
+            path.isAbsolute(result.filename)
+              ? result.filename
+              : path.resolve(currentDirectory || ".", result.filename),
+          ),
+        );
+      }
+
+      // Also try to resolve via webpack so aliases / custom resolvers can
+      // contribute dependencies. The resolved content is discarded - we
+      // only need the file path to track as a dependency.
+      pendingDependencyTasks.push(
+        this.resolveFilename(filename, currentDirectory)
+          .then((resolved) => {
+            const absoluteFilename = path.isAbsolute(resolved)
+              ? resolved
+              : path.resolve(".", resolved);
+
+            loaderContext.addDependency(path.normalize(absoluteFilename));
+          })
+          .catch(() => {
+            // Webpack may legitimately fail to resolve paths that Less's
+            // default sync manager handled (e.g. node-style relative
+            // lookups). The sync result above is what Less consumes, so
+            // ignore the async failure.
+          }),
+      );
+
+      return result;
     }
 
     /**
@@ -238,7 +299,7 @@ function createWebpackLessPlugin(loaderContext, implementation) {
  * @param {LoaderContext} loaderContext
  * @param {LessLoaderOptions} loaderOptions
  * @param {Less} implementation
- * @returns {LessOptions}
+ * @returns {{ lessOptions: LessOptions, pendingDependencyTasks: Array<Promise<void>> }}
  */
 function getLessOptions(loaderContext, loaderOptions, implementation) {
   const options =
@@ -255,6 +316,13 @@ function getLessOptions(loaderContext, loaderOptions, implementation) {
     ...options,
   };
 
+  // Collects async dependency-resolution promises kicked off from
+  // synchronous Less file loads (e.g. `data-uri()`, `@plugin`). The loader
+  // awaits these before completing so webpack's dependency snapshot is
+  // accurate.
+  /** @type {Array<Promise<void>>} */
+  const pendingDependencyTasks = [];
+
   const plugins = [...lessOptions.plugins];
   const shouldUseWebpackImporter =
     typeof loaderOptions.webpackImporter === "boolean" ||
@@ -263,7 +331,13 @@ function getLessOptions(loaderContext, loaderOptions, implementation) {
       : true;
 
   if (shouldUseWebpackImporter) {
-    plugins.unshift(createWebpackLessPlugin(loaderContext, implementation));
+    plugins.unshift(
+      createWebpackLessPlugin(
+        loaderContext,
+        implementation,
+        pendingDependencyTasks,
+      ),
+    );
   }
 
   plugins.unshift({
@@ -276,7 +350,7 @@ function getLessOptions(loaderContext, loaderOptions, implementation) {
 
   lessOptions.plugins = plugins;
 
-  return lessOptions;
+  return { lessOptions, pendingDependencyTasks };
 }
 
 /**
