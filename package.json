@@ -23,6 +23,7 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js",
       "default": "./dist/esm/index.js"
@@ -31,8 +32,10 @@
   },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
+  "types": "./types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "scripts": {
     "start": "npm run build -- -w",
@@ -40,11 +43,13 @@
     "prebuild": "npm run clean",
     "build:esm": "babel src -d dist/esm --env-name esm --copy-files --no-copy-ignored && node -e \"require('fs').writeFileSync('dist/esm/package.json','{\\\"type\\\":\\\"module\\\"}\\n')\"",
     "build:cjs": "babel src -d dist/cjs --env-name cjs --copy-files --no-copy-ignored && node -e \"const fs=require('fs');fs.writeFileSync('dist/cjs/package.json','{\\\"type\\\":\\\"commonjs\\\"}\\n');fs.appendFileSync('dist/cjs/index.js','module.exports = exports.default;\\nmodule.exports.default = exports.default;\\n')\"",
+    "build:types": "tsc && prettier \"types/**/*.ts\" --write",
     "build": "npm-run-all -p \"build:*\"",
     "security": "npm audit --production",
     "lint": "npm-run-all -l -p \"lint:**\" && npm run fmt:check",
     "lint:code": "eslint --cache .",
     "lint:spelling": "cspell --cache --no-must-find-files --quiet \"**/*.*\"",
+    "lint:types": "tsc --pretty --noEmit",
     "fmt": "npm run fmt:check -- --write",
     "fmt:check": "prettier --list-different --cache --ignore-unknown .",
     "fix": "npm run fix:code && npm run fmt",
@@ -57,12 +62,16 @@
     "version": "changeset version",
     "release": "npm run build && changeset publish"
   },
+  "dependencies": {
+    "@types/less": "^3.0.8"
+  },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.29.5",
     "@changesets/cli": "^2.30.0",
     "@changesets/get-github-info": "^0.8.0",
+    "@types/node": "^22.13.4",
     "cspell": "^10.0.0",
     "del": "^8.0.1",
     "del-cli": "^7.0.0",
@@ -75,6 +84,7 @@
     "memfs": "^4.57.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.8.3",
+    "typescript": "^6.0.3",
     "webpack": "^5.107.0"
   },
   "peerDependencies": {

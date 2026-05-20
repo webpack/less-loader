@@ -1,5 +1,10 @@
 import readAsset from "./readAsset.js";
 
+/**
+ * @param {Compiler} compiler compiler
+ * @param {Stats} stats stats
+ * @returns {Record<string, string>} assets
+ */
 export default function readAssets(compiler, stats) {
   const assets = {};
 

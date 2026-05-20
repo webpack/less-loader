@@ -177,6 +177,12 @@ class CustomImportPlugin {
   }
 }
 
+/**
+ * @param {string} testId test ID
+ * @param {Options} options options
+ * @param {Context} context context
+ * @returns {{ css: string, map: RawSourceMap }} CSS and source map (if exist)
+ */
 async function getCodeFromLess(testId, options = {}, context = {}) {
   let pathToFile;
 

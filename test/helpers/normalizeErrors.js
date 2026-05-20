@@ -1,3 +1,7 @@
+/**
+ * @param {string} str str
+ * @returns {string} str without cwd
+ */
 function removeCWD(str) {
   const isWin = process.platform === "win32";
   let cwd = process.cwd();

@@ -9,20 +9,20 @@ import {
   normalizeSourceMap,
 } from "./utils.js";
 
-/** @typedef {import("webpack").LoaderContext<import("./utils.js").LessLoaderOptions>} LoaderContext */
-/** @typedef {import("./utils.js").LessLoaderOptions} LessLoaderOptions */
+/** @typedef {import("webpack").LoaderContext<LoaderOptions>} LoaderContext */
+/** @typedef {import("schema-utils/declarations/validate").Schema} Schema */
+/** @typedef {import("./utils.js").LoaderOptions} LoaderOptions */
 /** @typedef {import("./utils.js").LessError} LessError */
 /** @typedef {import("./utils.js").SourceMap} SourceMap */
 
 /**
  * Webpack loader that compiles Less to CSS.
- *
  * @this {LoaderContext}
- * @param {string} source
- * @returns {Promise<void>}
+ * @param {string} content content
+ * @returns {Promise<void>} loader result
  */
-async function lessLoader(source) {
-  const options = /** @type {LessLoaderOptions} */ (this.getOptions(schema));
+async function lessLoader(content) {
+  const options = this.getOptions(/** @type {Schema} */ (schema));
   const callback = this.async();
   let implementation;
 
@@ -56,11 +56,12 @@ async function lessLoader(source) {
     lessOptions.sourceMap = {
       sourceMapBasepath: "",
       outputSourceFiles: true,
+      // @ts-expect-error bad types
       disableSourcemapAnnotation: true,
     };
   }
 
-  let data = source;
+  let data = content;
 
   if (typeof options.additionalData !== "undefined") {
     data =
@@ -72,7 +73,7 @@ async function lessLoader(source) {
   const logger = this.getLogger("less-loader");
   const loaderContext = this;
   const loggerListener = {
-    /** @param {string} message */
+    /** @param {string} message message */
     error(message) {
       // TODO enable by default in the next major release
       if (options.lessLogAsWarnOrErr) {
@@ -81,7 +82,7 @@ async function lessLoader(source) {
         logger.error(message);
       }
     },
-    /** @param {string} message */
+    /** @param {string} message message */
     warn(message) {
       // TODO enable by default in the next major release
       if (options.lessLogAsWarnOrErr) {
@@ -90,16 +91,17 @@ async function lessLoader(source) {
         logger.warn(message);
       }
     },
-    /** @param {string} message */
+    /** @param {string} message message */
     info(message) {
       logger.log(message);
     },
-    /** @param {string} message */
+    /** @param {string} message message */
     debug(message) {
       logger.debug(message);
     },
   };
 
+  // @ts-expect-error bad types
   implementation.logger.addListener(loggerListener);
 
   let result;
@@ -124,9 +126,12 @@ async function lessLoader(source) {
     return;
   } finally {
     // Fix memory leaks in `less`
+    // @ts-expect-error bad types
     implementation.logger.removeListener(loggerListener);
 
+    // @ts-expect-error we need it to reset loader context
     delete lessOptions.pluginManager.webpackLoaderContext;
+    // @ts-expect-error we need it to reset loader context
     delete lessOptions.pluginManager;
   }
 
