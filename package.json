@@ -20,7 +20,17 @@
   },
   "license": "MIT",
   "author": "Johannes Ewald @jhnns",
-  "main": "dist/cjs.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "files": [
     "dist"
   ],
@@ -28,8 +38,9 @@
     "start": "npm run build -- -w",
     "clean": "del-cli dist",
     "prebuild": "npm run clean",
-    "build": "cross-env NODE_ENV=production babel src -d dist --copy-files",
-    "commitlint": "commitlint --from=main",
+    "build:esm": "babel src -d dist/esm --env-name esm --copy-files --no-copy-ignored && node -e \"require('fs').writeFileSync('dist/esm/package.json','{\\\"type\\\":\\\"module\\\"}\\n')\"",
+    "build:cjs": "babel src -d dist/cjs --env-name cjs --copy-files --no-copy-ignored && node -e \"const fs=require('fs');fs.writeFileSync('dist/cjs/package.json','{\\\"type\\\":\\\"commonjs\\\"}\\n');fs.appendFileSync('dist/cjs/index.js','module.exports = exports.default;\\nmodule.exports.default = exports.default;\\n')\"",
+    "build": "npm-run-all -p \"build:*\"",
     "security": "npm audit --production",
     "lint:prettier": "prettier --cache --list-different .",
     "lint:js": "eslint --cache .",
@@ -53,9 +64,6 @@
     "@babel/preset-env": "^7.24.7",
     "@changesets/cli": "^2.30.0",
     "@changesets/get-github-info": "^0.8.0",
-    "@commitlint/cli": "^18.6.1",
-    "@commitlint/config-conventional": "^18.6.2",
-    "cross-env": "^7.0.3",
     "cspell": "^8.10.0",
     "del": "^7.1.0",
     "del-cli": "^5.1.0",

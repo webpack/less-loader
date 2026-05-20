@@ -1,8 +1,10 @@
 const MIN_BABEL_VERSION = 7;
 
-module.exports = (api) => {
+export default (api) => {
   api.assertVersion(MIN_BABEL_VERSION);
-  api.cache(true);
+
+  const env = api.env();
+  const isEsm = env === "esm";
 
   return {
     presets: [
@@ -12,6 +14,8 @@ module.exports = (api) => {
           targets: {
             node: "22.11.0",
           },
+          modules: isEsm ? false : "commonjs",
+          exclude: ["transform-dynamic-import"],
         },
       ],
     ],

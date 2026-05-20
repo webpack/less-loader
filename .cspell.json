@@ -10,8 +10,7 @@
     "iscolor",
     "klona",
     "FOUC",
-    "sourcemaps",
-    "commitlint"
+    "sourcemaps"
   ],
 
   "ignorePaths": [

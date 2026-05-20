@@ -29,7 +29,7 @@ export default (fixture, loaderOptions = {}, config = {}) => {
               loader: require.resolve("./testLoader.cjs"),
             },
             {
-              loader: path.resolve(__dirname, "../../dist/cjs.js"),
+              loader: path.resolve(__dirname, "../../dist/cjs/index.js"),
               options: loaderOptions || {},
             },
           ],
