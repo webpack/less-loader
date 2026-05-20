@@ -9,6 +9,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig([
   {
     extends: [configs["recommended-dirty"]],
+    languageOptions: {
+      ecmaVersion: 2025,
+    },
   },
   {
     files: ["test/**/*.{js,cjs,mjs}"],

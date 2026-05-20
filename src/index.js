@@ -1,13 +1,13 @@
 import path from "node:path";
 
-import schema from "./options.json";
+import schema from "./options.json" with { type: "json" };
 import {
   errorFactory,
   getLessImplementation,
   getLessOptions,
   isUnsupportedUrl,
   normalizeSourceMap,
-} from "./utils";
+} from "./utils.js";
 
 async function lessLoader(source) {
   const options = this.getOptions(schema);
@@ -15,7 +15,7 @@ async function lessLoader(source) {
   let implementation;
 
   try {
-    implementation = getLessImplementation(this, options.implementation);
+    implementation = await getLessImplementation(this, options.implementation);
   } catch (error) {
     callback(error);
 

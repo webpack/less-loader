@@ -1,4 +1,5 @@
 import path from "node:path";
+import url from "node:url";
 
 const trailingSlash = /[/\\]$/;
 
@@ -230,13 +231,26 @@ function normalizeSourceMap(map) {
   return newMap;
 }
 
-function getLessImplementation(loaderContext, implementation) {
+function normalizeImportSpecifier(specifier) {
+  if (specifier.startsWith("file:")) {
+    return specifier;
+  }
+
+  if (path.isAbsolute(specifier)) {
+    return url.pathToFileURL(specifier).href;
+  }
+
+  return specifier;
+}
+
+async function getLessImplementation(loaderContext, implementation) {
   let resolvedImplementation = implementation;
 
   if (!implementation || typeof implementation === "string") {
     const lessImplPkg = implementation || "less";
+    const imported = await import(normalizeImportSpecifier(lessImplPkg));
 
-    resolvedImplementation = require(lessImplPkg);
+    resolvedImplementation = imported.default ?? imported;
   }
 
   return resolvedImplementation;
