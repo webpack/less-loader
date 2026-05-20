@@ -2,6 +2,12 @@ import vm from "node:vm";
 
 import readAsset from "./readAsset.js";
 
+/**
+ * @param {Stats} stats stats
+ * @param {Compiler} compiler compiler
+ * @param {name} asset asset name
+ * @returns {Record<string, string>} code from bundle
+ */
 function getCodeFromBundle(stats, compiler, asset) {
   let code = null;
 

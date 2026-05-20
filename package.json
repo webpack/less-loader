@@ -62,6 +62,9 @@
     "version": "changeset version",
     "release": "npm run build && changeset publish"
   },
+  "dependencies": {
+    "@types/less": "^3.0.8"
+  },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
@@ -99,8 +102,5 @@
   },
   "engines": {
     "node": ">= 22.11.0"
-  },
-  "dependencies": {
-    "@types/less": "^3.0.8"
   }
 }

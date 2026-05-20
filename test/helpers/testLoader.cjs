@@ -1,5 +1,10 @@
 "use strict";
 
+/**
+ * @param {string} content content
+ * @param {RawSourceMap} sourceMap source map
+ * @returns {string} code for tests
+ */
 function testLoader(content, sourceMap) {
   const result = { css: content };
 
