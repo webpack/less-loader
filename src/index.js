@@ -9,15 +9,27 @@ import {
   normalizeSourceMap,
 } from "./utils.js";
 
+/** @typedef {import("webpack").LoaderContext<import("./utils.js").LessLoaderOptions>} LoaderContext */
+/** @typedef {import("./utils.js").LessLoaderOptions} LessLoaderOptions */
+/** @typedef {import("./utils.js").LessError} LessError */
+/** @typedef {import("./utils.js").SourceMap} SourceMap */
+
+/**
+ * Webpack loader that compiles Less to CSS.
+ *
+ * @this {LoaderContext}
+ * @param {string} source
+ * @returns {Promise<void>}
+ */
 async function lessLoader(source) {
-  const options = this.getOptions(schema);
+  const options = /** @type {LessLoaderOptions} */ (this.getOptions(schema));
   const callback = this.async();
   let implementation;
 
   try {
     implementation = await getLessImplementation(this, options.implementation);
   } catch (error) {
-    callback(error);
+    callback(/** @type {Error} */ (error));
 
     return;
   }
@@ -56,6 +68,7 @@ async function lessLoader(source) {
   const logger = this.getLogger("less-loader");
   const loaderContext = this;
   const loggerListener = {
+    /** @param {string} message */
     error(message) {
       // TODO enable by default in the next major release
       if (options.lessLogAsWarnOrErr) {
@@ -64,6 +77,7 @@ async function lessLoader(source) {
         logger.error(message);
       }
     },
+    /** @param {string} message */
     warn(message) {
       // TODO enable by default in the next major release
       if (options.lessLogAsWarnOrErr) {
@@ -72,9 +86,11 @@ async function lessLoader(source) {
         logger.warn(message);
       }
     },
+    /** @param {string} message */
     info(message) {
       logger.log(message);
     },
+    /** @param {string} message */
     debug(message) {
       logger.debug(message);
     },
@@ -87,13 +103,15 @@ async function lessLoader(source) {
   try {
     result = await implementation.render(data, lessOptions);
   } catch (error) {
-    if (error.filename) {
+    const lessError = /** @type {LessError} */ (error);
+
+    if (lessError.filename) {
       // `less` returns forward slashes on windows when `webpack` resolver return an absolute windows path in `WebpackFileManager`
       // Ref: https://github.com/webpack/less-loader/issues/357
-      this.addDependency(path.normalize(error.filename));
+      this.addDependency(path.normalize(lessError.filename));
     }
 
-    callback(errorFactory(error));
+    callback(errorFactory(lessError));
 
     return;
   } finally {

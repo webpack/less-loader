@@ -1,6 +1,55 @@
 import path from "node:path";
 import url from "node:url";
 
+/** @typedef {import("webpack").LoaderContext<LessLoaderOptions>} LoaderContext */
+/** @typedef {import("less")} Less */
+/** @typedef {Less["FileManager"]} LessFileManager */
+/** @typedef {InstanceType<LessFileManager>} LessFileManagerInstance */
+/** @typedef {Parameters<LessFileManagerInstance["loadFile"]>} LoadFileArgs */
+/** @typedef {Awaited<ReturnType<LessFileManagerInstance["loadFile"]>>} LoadFileResult */
+
+/**
+ * @typedef {object} LessPluginManager
+ * @property {(fileManager: LessFileManagerInstance) => void} addFileManager
+ * @property {LoaderContext} [webpackLoaderContext]
+ */
+
+/**
+ * @typedef {object} LessPlugin
+ * @property {(lessInstance: Less, pluginManager: LessPluginManager) => void} install
+ * @property {[number, number, number]} [minVersion]
+ */
+
+/**
+ * @typedef {object} LessOptions
+ * @property {LessPlugin[]} plugins
+ * @property {boolean} [relativeUrls]
+ * @property {string} [filename]
+ * @property {LessPluginManager} [pluginManager]
+ * @property {{ sourceMapBasepath: string, outputSourceFiles: boolean, disableSourcemapAnnotation: boolean }} [sourceMap]
+ */
+
+/**
+ * @typedef {object} LessLoaderOptions
+ * @property {LessOptions | ((loaderContext: LoaderContext) => LessOptions)} [lessOptions]
+ * @property {string | ((source: string, loaderContext: LoaderContext) => string | Promise<string>)} [additionalData]
+ * @property {boolean} [sourceMap]
+ * @property {boolean | "only"} [webpackImporter]
+ * @property {string | Less} [implementation]
+ * @property {boolean} [lessLogAsWarnOrErr]
+ */
+
+/**
+ * @typedef {object} SourceMap
+ * @property {string} [file]
+ * @property {string} [sourceRoot]
+ * @property {string[]} sources
+ */
+
+/**
+ * @typedef {Error & { type?: string, filename?: string, line?: number, column?: number, extract?: string[] }} LessError
+ */
+
 const trailingSlash = /[/\\]$/;
 
 // This somewhat changed in Less 3.x. Now the file name comes without the
@@ -26,11 +75,13 @@ const MODULE_REQUEST_REGEX = /^[^?]*~/;
  * Creates a Less plugin that uses webpack's resolving engine that is provided by the loaderContext.
  *
  * @param {LoaderContext} loaderContext
- * @param {object} implementation
+ * @param {Less} implementation
  * @returns {LessPlugin}
  */
 function createWebpackLessPlugin(loaderContext, implementation) {
-  const lessOptions = loaderContext.getOptions();
+  const lessOptions =
+    /** @type {LessLoaderOptions} */
+    (loaderContext.getOptions());
   const resolve = loaderContext.getResolve({
     dependencyType: "less",
     conditionNames: ["less", "style", "..."],
@@ -41,6 +92,10 @@ function createWebpackLessPlugin(loaderContext, implementation) {
   });
 
   class WebpackFileManager extends implementation.FileManager {
+    /**
+     * @param {string} filename
+     * @returns {boolean}
+     */
     supports(filename) {
       if (filename[0] === "/" || IS_NATIVE_WIN32_PATH.test(filename)) {
         return true;
@@ -58,10 +113,18 @@ function createWebpackLessPlugin(loaderContext, implementation) {
     // to the default file manager of Less.
     // We could probably use loaderContext.resolveSync, but it's deprecated,
     // see https://webpack.js.org/api/loaders/#this-resolvesync
+    /**
+     * @returns {boolean}
+     */
     supportsSync() {
       return false;
     }
 
+    /**
+     * @param {string} filename
+     * @param {string} currentDirectory
+     * @returns {Promise<string>}
+     */
     async resolveFilename(filename, currentDirectory) {
       // Less is giving us trailing slashes, but the context should have no trailing slash
       const context = currentDirectory.replace(trailingSlash, "");
@@ -80,6 +143,11 @@ function createWebpackLessPlugin(loaderContext, implementation) {
       return this.resolveRequests(context, [...new Set([request, filename])]);
     }
 
+    /**
+     * @param {string} context
+     * @param {string[]} possibleRequests
+     * @returns {Promise<string>}
+     */
     async resolveRequests(context, possibleRequests) {
       if (possibleRequests.length === 0) {
         throw new Error("No possible requests to resolve");
@@ -102,6 +170,11 @@ function createWebpackLessPlugin(loaderContext, implementation) {
       return result;
     }
 
+    /**
+     * @param {string} filename
+     * @param {LoadFileArgs} args
+     * @returns {Promise<LoadFileResult>}
+     */
     async loadFile(filename, ...args) {
       let result;
 
@@ -110,7 +183,7 @@ function createWebpackLessPlugin(loaderContext, implementation) {
           IS_SPECIAL_MODULE_IMPORT.test(filename) ||
           lessOptions.webpackImporter === "only"
         ) {
-          const error = new Error("Next");
+          const error = /** @type {LessError} */ (new Error("Next"));
 
           error.type = "Next";
 
@@ -119,17 +192,19 @@ function createWebpackLessPlugin(loaderContext, implementation) {
 
         result = await super.loadFile(filename, ...args);
       } catch (error) {
-        if (error.type !== "File" && error.type !== "Next") {
+        const lessError = /** @type {LessError} */ (error);
+
+        if (lessError.type !== "File" && lessError.type !== "Next") {
           throw error;
         }
 
         try {
           result = await this.resolveFilename(filename, ...args);
         } catch (err) {
-          error.message =
-            `Less resolver error:\n${error.message}\n\n` +
-            `Webpack resolver error details:\n${err.details}\n\n` +
-            `Webpack resolver error missing:\n${err.missing}\n\n`;
+          lessError.message =
+            `Less resolver error:\n${lessError.message}\n\n` +
+            `Webpack resolver error details:\n${/** @type {{ details: string }} */ (err).details}\n\n` +
+            `Webpack resolver error missing:\n${/** @type {{ missing: string }} */ (err).missing}\n\n`;
 
           throw error;
         }
@@ -160,10 +235,10 @@ function createWebpackLessPlugin(loaderContext, implementation) {
 /**
  * Get the `less` options from the loader context and normalizes its values
  *
- * @param {object} loaderContext
- * @param {object} loaderOptions
- * @param {object} implementation
- * @returns {Object}
+ * @param {LoaderContext} loaderContext
+ * @param {LessLoaderOptions} loaderOptions
+ * @param {Less} implementation
+ * @returns {LessOptions}
  */
 function getLessOptions(loaderContext, loaderOptions, implementation) {
   const options =
@@ -171,6 +246,7 @@ function getLessOptions(loaderContext, loaderOptions, implementation) {
       ? loaderOptions.lessOptions(loaderContext) || {}
       : loaderOptions.lessOptions || {};
 
+  /** @type {LessOptions} */
   const lessOptions = {
     plugins: [],
     relativeUrls: true,
@@ -203,6 +279,10 @@ function getLessOptions(loaderContext, loaderOptions, implementation) {
   return lessOptions;
 }
 
+/**
+ * @param {string} url
+ * @returns {boolean}
+ */
 function isUnsupportedUrl(url) {
   // Is Windows path
   if (IS_NATIVE_WIN32_PATH.test(url)) {
@@ -214,6 +294,10 @@ function isUnsupportedUrl(url) {
   return /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(url);
 }
 
+/**
+ * @param {SourceMap} map
+ * @returns {SourceMap}
+ */
 function normalizeSourceMap(map) {
   const newMap = map;
 
@@ -231,6 +315,10 @@ function normalizeSourceMap(map) {
   return newMap;
 }
 
+/**
+ * @param {string} specifier
+ * @returns {string}
+ */
 function normalizeImportSpecifier(specifier) {
   if (specifier.startsWith("file:")) {
     return specifier;
@@ -243,6 +331,11 @@ function normalizeImportSpecifier(specifier) {
   return specifier;
 }
 
+/**
+ * @param {LoaderContext} loaderContext
+ * @param {string | Less | undefined} implementation
+ * @returns {Promise<Less>}
+ */
 async function getLessImplementation(loaderContext, implementation) {
   let resolvedImplementation = implementation;
 
@@ -253,16 +346,20 @@ async function getLessImplementation(loaderContext, implementation) {
     resolvedImplementation = imported.default ?? imported;
   }
 
-  return resolvedImplementation;
+  return /** @type {Less} */ (resolvedImplementation);
 }
 
+/**
+ * @param {LessError} error
+ * @returns {string[]}
+ */
 function getFileExcerptIfPossible(error) {
   if (typeof error.extract === "undefined") {
     return [];
   }
 
   const excerpt = error.extract.slice(0, 2);
-  const column = Math.max(error.column - 1, 0);
+  const column = Math.max(/** @type {number} */ (error.column) - 1, 0);
 
   if (typeof excerpt[0] === "undefined") {
     excerpt.shift();
@@ -273,6 +370,10 @@ function getFileExcerptIfPossible(error) {
   return excerpt;
 }
 
+/**
+ * @param {LessError} error
+ * @returns {Error}
+ */
 function errorFactory(error) {
   const message = [
     "\n",
@@ -285,7 +386,9 @@ function errorFactory(error) {
       : "",
   ].join("\n");
 
-  const obj = new Error(message, { cause: error });
+  const obj = /** @type {Error & { stack: string | null }} */ (
+    new Error(message, { cause: error })
+  );
 
   obj.stack = null;
 
