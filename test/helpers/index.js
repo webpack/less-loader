@@ -2,6 +2,7 @@ export { default as compile } from "./compile.js";
 export { default as getCodeFromBundle } from "./getCodeFromBundle.js";
 export { default as execute } from "./execute.js";
 export { default as getCompiler } from "./getCompiler.js";
+export { default as getCssCompiler } from "./getCssCompiler.js";
 export { default as getCodeFromLess } from "./getCodeFromLess.js";
 export { default as getWarnings } from "./getWarnings.js";
 export { default as getErrors } from "./getErrors.js";

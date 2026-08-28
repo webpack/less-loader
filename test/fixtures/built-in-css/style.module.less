@@ -1,0 +1,10 @@
+@base: #f938ab;
+
+.box {
+  color: saturate(@base, 5%);
+}
+
+.nested {
+  .box();
+  padding: 10px;
+}

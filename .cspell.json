@@ -10,7 +10,8 @@
     "iscolor",
     "klona",
     "FOUC",
-    "sourcemaps"
+    "sourcemaps",
+    "pathinfo"
   ],
 
   "ignorePaths": [
