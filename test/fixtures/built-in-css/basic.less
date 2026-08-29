@@ -1,0 +1,10 @@
+@import "./imported.less";
+@import "some/module";
+
+@base: #f938ab;
+
+.box {
+  color: saturate(@base, 5%);
+  border-color: lighten(@base, 30%);
+  background: url("../resources/circle.svg");
+}

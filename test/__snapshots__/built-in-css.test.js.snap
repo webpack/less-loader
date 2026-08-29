@@ -1,0 +1,73 @@
+exports[`built-in CSS support > should emit an error on a broken file 1`] = `
+[]
+`;
+
+exports[`built-in CSS support > should emit an error on a broken file 2`] = `
+[
+  "ModuleBuildError: Module build failed (from \`replaced original path\`):\\n"
+]
+`;
+
+exports[`built-in CSS support > should emit assets from \`url()\` 1`] = `
+[]
+`;
+
+exports[`built-in CSS support > should emit assets from \`url()\` 2`] = `
+[]
+`;
+
+exports[`built-in CSS support > should generate source maps 1`] = `
+[]
+`;
+
+exports[`built-in CSS support > should generate source maps 2`] = `
+[]
+`;
+
+exports[`built-in CSS support > should work 1`] = `
+".imported {\\n  color: hotpink;\\n}\\n.modules-dir-some-module {\\n  color: hotpink;\\n}\\n.box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(circle.svg);\\n}\\n\\n"
+`;
+
+exports[`built-in CSS support > should work 2`] = `
+[]
+`;
+
+exports[`built-in CSS support > should work 3`] = `
+[]
+`;
+
+exports[`built-in CSS support > should work with CSS modules 1`] = `
+".built-in-css_style_module_less-box {\\n  color: #fe33ac;\\n}\\n.built-in-css_style_module_less-nested {\\n  color: #fe33ac;\\n  padding: 10px;\\n}\\n\\n"
+`;
+
+exports[`built-in CSS support > should work with CSS modules 2`] = `
+[]
+`;
+
+exports[`built-in CSS support > should work with CSS modules 3`] = `
+[]
+`;
+
+exports[`built-in CSS support > should work with the \`additionalData\` option 1`] = `
+".variables {\\n  color: coral;\\n}\\n\\n"
+`;
+
+exports[`built-in CSS support > should work with the \`additionalData\` option 2`] = `
+[]
+`;
+
+exports[`built-in CSS support > should work with the \`additionalData\` option 3`] = `
+[]
+`;
+
+exports[`built-in CSS support > should work with the \`lessOptions\` option 1`] = `
+".variables {\\n  color: hotpink;\\n}\\n\\n"
+`;
+
+exports[`built-in CSS support > should work with the \`lessOptions\` option 2`] = `
+[]
+`;
+
+exports[`built-in CSS support > should work with the \`lessOptions\` option 3`] = `
+[]
+`;
