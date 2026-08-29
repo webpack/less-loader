@@ -16,11 +16,45 @@ exports[`built-in CSS support > should emit assets from \`url()\` 2`] = `
 []
 `;
 
+exports[`built-in CSS support > should emit less warning as webpack warning 1`] = `
+[
+  "ModuleWarning: Module Warning (from \`replaced original path\`):\\nWARNING: extend ' .body1' has no matches"
+]
+`;
+
+exports[`built-in CSS support > should emit less warning as webpack warning 2`] = `
+[]
+`;
+
 exports[`built-in CSS support > should generate source maps 1`] = `
 []
 `;
 
 exports[`built-in CSS support > should generate source maps 2`] = `
+[]
+`;
+
+exports[`built-in CSS support > should not treat a file as a CSS module with the \`css\` type 1`] = `
+".box {\\n  color: #fe33ac;\\n}\\n.nested {\\n  color: #fe33ac;\\n  padding: 10px;\\n}\\n\\n"
+`;
+
+exports[`built-in CSS support > should not treat a file as a CSS module with the \`css\` type 2`] = `
+[]
+`;
+
+exports[`built-in CSS support > should not treat a file as a CSS module with the \`css\` type 3`] = `
+[]
+`;
+
+exports[`built-in CSS support > should treat any file as a CSS module with the \`css/module\` type 1`] = `
+".built-in-css_basic_less-imported {\\n  color: hotpink;\\n}\\n.built-in-css_basic_less-modules-dir-some-module {\\n  color: hotpink;\\n}\\n.built-in-css_basic_less-box {\\n  color: #fe33ac;\\n  border-color: #fdcdea;\\n  background: url(circle.svg);\\n}\\n\\n"
+`;
+
+exports[`built-in CSS support > should treat any file as a CSS module with the \`css/module\` type 2`] = `
+[]
+`;
+
+exports[`built-in CSS support > should treat any file as a CSS module with the \`css/module\` type 3`] = `
 []
 `;
 

@@ -11,10 +11,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * (i.e. `experiments.css`) instead of `css-loader`/`style-loader`.
  * @param {string} fixture fixture
  * @param {object} loaderOptions loader options
- * @param {object} config webpack config
+ * @param {object} config webpack config, the `type` property is used as the module type of the rule
  * @returns {Compiler} compiler
  */
 export default (fixture, loaderOptions = {}, config = {}) => {
+  const { type = "css/auto", ...webpackConfig } = config;
   const fullConfig = {
     mode: "development",
     devtool: config.devtool || false,
@@ -36,7 +37,7 @@ export default (fixture, loaderOptions = {}, config = {}) => {
       rules: [
         {
           test: /\.less$/i,
-          type: "css/auto",
+          type,
           use: [
             {
               loader: path.resolve(__dirname, "../../src/index.js"),
@@ -47,7 +48,7 @@ export default (fixture, loaderOptions = {}, config = {}) => {
       ],
     },
     plugins: [],
-    ...config,
+    ...webpackConfig,
   };
 
   const compiler = webpack(fullConfig);
