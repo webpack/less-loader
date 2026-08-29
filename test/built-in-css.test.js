@@ -55,6 +55,35 @@ describe("built-in CSS support", { timeout: 30000 }, () => {
     t.assert.snapshot(getErrors(stats));
   });
 
+  it("should not treat a file as a CSS module with the `css` type", async (t) => {
+    const testId = "./built-in-css/style.module.less";
+    const compiler = getCssCompiler(testId, {}, { type: "css" });
+    const stats = await compile(compiler);
+    const css = readAsset("main.css", compiler, stats);
+
+    assert.match(css, /^\.box\b/m, "Expected local class names to be kept");
+    t.assert.snapshot(css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
+  });
+
+  it("should treat any file as a CSS module with the `css/module` type", async (t) => {
+    const testId = "./built-in-css/basic.less";
+    const compiler = getCssCompiler(testId, {}, { type: "css/module" });
+    const stats = await compile(compiler);
+    const css = readAsset("main.css", compiler, stats);
+
+    assert.doesNotMatch(
+      css,
+      /^\.box\b/m,
+      "Expected local class names to be renamed",
+    );
+    assert.match(css, /^\.[\w-]+-box\b/m);
+    t.assert.snapshot(css);
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
+  });
+
   it("should work with the `lessOptions` option", async (t) => {
     const testId = "./built-in-css/variables.less";
     const compiler = getCssCompiler(testId, {
@@ -100,6 +129,15 @@ describe("built-in CSS support", { timeout: 30000 }, () => {
       true,
       "Expected the source map to contain the original Less source",
     );
+    t.assert.snapshot(getWarnings(stats));
+    t.assert.snapshot(getErrors(stats));
+  });
+
+  it("should emit less warning as webpack warning", async (t) => {
+    const testId = "./warn.less";
+    const compiler = getCssCompiler(testId);
+    const stats = await compile(compiler);
+
     t.assert.snapshot(getWarnings(stats));
     t.assert.snapshot(getErrors(stats));
   });
