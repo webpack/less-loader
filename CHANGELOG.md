@@ -1,5 +1,11 @@
 # Changelog
 
+## 13.1.0
+
+### Minor Changes
+
+- Resolve a `data:` resource's imports from the loader's context. (by [@alexander-akait](https://github.com/alexander-akait) in [#620](https://github.com/webpack/less-loader/pull/620))
+
 ## 13.0.0
 
 ### Major Changes
