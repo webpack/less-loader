@@ -1,6 +1,6 @@
 {
   "name": "less-loader",
-  "version": "13.0.0",
+  "version": "13.1.0",
   "description": "A Less loader for webpack. Compiles Less to CSS.",
   "keywords": [
     "webpack",
