@@ -307,8 +307,11 @@ function getLessOptions(loaderContext, loaderOptions, implementation) {
   const lessOptions = {
     // @ts-expect-error bad types
     relativeUrls: true,
-    // We need to set the filename because otherwise our WebpackFileManager will receive an undefined path for the entry
-    filename: loaderContext.resourcePath,
+    // We need to set the filename because otherwise our WebpackFileManager will receive an undefined path for the entry;
+    // a `data:` resource has no path of its own, so it reads as a file in the loader's context
+    filename: loaderContext.resourcePath.startsWith("data:")
+      ? path.join(loaderContext.context, "stdin.less")
+      : loaderContext.resourcePath,
     ...options,
   };
 
