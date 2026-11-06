@@ -62,8 +62,9 @@ module.exports = {
 
 > [!NOTE]
 >
-> The built-in CSS support of webpack requires `experiments.css` to be enabled.
-> Alternatively you can still chain the loader with [`css-loader`](https://github.com/webpack/css-loader) and [`style-loader`](https://github.com/webpack/style-loader) (or the [`mini-css-extract-plugin`](https://github.com/webpack/mini-css-extract-plugin)), see [Using `css-loader` and `style-loader`](#using-css-loader-and-style-loader).
+> The built-in CSS support of webpack is the recommended way to handle the generated CSS, and needs webpack 5.87.0 or later. Since webpack 5.109.0 it is on by default (`experiments.css` defaults to `"auto"`), but `"auto"` switches it off when another `module.rules` entry handles `.css` files, so the examples below keep `experiments.css: true`. If such a rule still uses `css-loader`, give it `type: "javascript/auto"` so built-in CSS leaves those files to it.
+> Its output is a `.css` file the page has to link: let webpack build the page — an [HTML entry or `output.html: true`](https://webpack.js.org/guides/native-html/) (webpack 5.108.0 or later; before 5.109.0 also set `experiments.html: true`) adds the `<link>` for you — set [`exportType: "style"`](https://webpack.js.org/guides/native-css/#output-modes-exporttype) (webpack 5.106.0 or later) to inject the styles from JavaScript instead, or link the emitted file yourself.
+> Alternatively you can still chain the loader with the deprecated [`css-loader`](https://github.com/webpack/css-loader) and [`style-loader`](https://github.com/webpack/style-loader) (or the [`mini-css-extract-plugin`](https://github.com/webpack/mini-css-extract-plugin)), see [Using `css-loader` and `style-loader`](#using-css-loader-and-style-loader) — and the [Native CSS migration guide](https://webpack.js.org/guides/native-css/#migration-guide) to move off them.
 
 Finally, run `webpack` using the method you normally use (e.g., via CLI or an npm script).
 
@@ -518,7 +519,7 @@ Unfortunately, Less doesn't map all options 1-by-1 to camelCase. When in doubt, 
 
 ### Using `css-loader` and `style-loader`
 
-The built-in CSS support of webpack is not mandatory, you can still chain the `less-loader` with [`css-loader`](https://github.com/webpack/css-loader) and [`style-loader`](https://github.com/webpack/style-loader) to immediately apply all styles to the DOM.
+The built-in CSS support of webpack is not mandatory: on setups that still need them, you can chain the `less-loader` with the deprecated [`css-loader`](https://github.com/webpack/css-loader) and [`style-loader`](https://github.com/webpack/style-loader) to immediately apply all styles to the DOM. New projects should use the built-in CSS support instead — see the [Native CSS migration guide](https://webpack.js.org/guides/native-css/#migration-guide).
 
 **webpack.config.js**
 
@@ -585,7 +586,7 @@ If you want to edit the original Less files inside Chrome, [there's a good blog 
 The built-in CSS support of webpack always extracts style sheets into dedicated files, so your styles are not dependent on JavaScript, which improves performance and cacheability.
 The name of the generated files can be configured using the [`output.cssFilename`](https://webpack.js.org/configuration/output/#outputcssfilename) and [`output.cssChunkFilename`](https://webpack.js.org/configuration/output/#outputcsschunkfilename) options.
 
-When you chain the loader with `css-loader` and `style-loader` instead, it's recommended to extract the style sheets into a dedicated file in production using the [MiniCssExtractPlugin](https://github.com/webpack/mini-css-extract-plugin).
+When you chain the loader with `css-loader` and `style-loader` instead, extract the style sheets into a dedicated file in production using the deprecated [MiniCssExtractPlugin](https://github.com/webpack/mini-css-extract-plugin).
 
 ### Imports
 
@@ -718,7 +719,7 @@ Bundling CSS with webpack has some nice advantages like referencing images and f
 In production, on the other hand, it's not a good idea to apply your style sheets depending on JS execution. Rendering may be delayed or even a [FOUC](https://en.wikipedia.org/wiki/Flash_of_unstyled_content) might be visible. Thus it's often still better to have them as separate files in your final production build.
 
 The built-in CSS support of webpack does this out of the box: every entry point and chunk gets its own style sheet, no extra plugin required.
-When you chain the loader with the `css-loader` instead, use the [`MiniCssExtractPlugin`](https://github.com/webpack/mini-css-extract-plugin) to extract a style sheet from the bundle.
+When you chain the loader with the `css-loader` instead, use the deprecated [`MiniCssExtractPlugin`](https://github.com/webpack/mini-css-extract-plugin) to extract a style sheet from the bundle.
 
 ### CSS modules
 
