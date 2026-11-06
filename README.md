@@ -62,7 +62,8 @@ module.exports = {
 
 > [!NOTE]
 >
-> The built-in CSS support of webpack is the recommended way to handle the generated CSS. It is on by default since webpack 5.109.0 (`experiments.css` defaults to `"auto"`), so `experiments.css: true` is only required on older webpack 5 releases — keeping it, as the examples below do, is harmless.
+> The built-in CSS support of webpack is the recommended way to handle the generated CSS, and needs webpack 5.87.0 or later. Since webpack 5.109.0 it is on by default (`experiments.css` defaults to `"auto"`), but `"auto"` switches it off when another `module.rules` entry handles `.css` files, so the examples below keep `experiments.css: true`. If such a rule still uses `css-loader`, give it `type: "javascript/auto"` so built-in CSS leaves those files to it.
+> Its output is a `.css` file the page has to link: let webpack build the page — an [HTML entry or `output.html: true`](https://webpack.js.org/guides/native-html/) adds the `<link>` for you — or set [`exportType: "style"`](https://webpack.js.org/guides/native-css/#output-modes-exporttype) to inject the styles from JavaScript instead.
 > Alternatively you can still chain the loader with the deprecated [`css-loader`](https://github.com/webpack/css-loader) and [`style-loader`](https://github.com/webpack/style-loader) (or the [`mini-css-extract-plugin`](https://github.com/webpack/mini-css-extract-plugin)), see [Using `css-loader` and `style-loader`](#using-css-loader-and-style-loader) — and the [Native CSS migration guide](https://webpack.js.org/guides/native-css/#migration-guide) to move off them.
 
 Finally, run `webpack` using the method you normally use (e.g., via CLI or an npm script).
