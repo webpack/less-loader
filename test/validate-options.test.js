@@ -2,11 +2,39 @@ import assert from "node:assert";
 import { createRequire } from "node:module";
 import { describe, it } from "node:test";
 
+import { validate } from "schema-utils";
+
+import check from "../src/options.check.js";
+import schema from "../src/options.json" with { type: "json" };
+
 import { compile, getCompiler } from "./helpers/index.js";
 
 const require = createRequire(import.meta.url);
 
+/**
+ * @param {EXPECTED_ANY} options loader options
+ * @returns {boolean} whether the schema accepts them
+ */
+function isValid(options) {
+  try {
+    validate(/** @type {EXPECTED_ANY} */ (schema), options);
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 describe("validate options", () => {
+  // Options that are not an object never pass the check. `validate` takes an
+  // array as a list of options objects, so it accepts `[]`; the check failing
+  // there only means webpack falls back to the full validation.
+  for (const value of [[], "invalid", 42, null]) {
+    it(`should not pass the check with ${JSON.stringify(value)}`, () => {
+      assert.strictEqual(check(value), false);
+    });
+  }
+
   const tests = {
     lessOptions: {
       success: [
@@ -68,6 +96,11 @@ describe("validate options", () => {
     it(`should ${
       type === "success" ? "successfully validate" : "throw an error on"
     } the "${key}" option with "${stringifyValue(value)}" value`, async (t) => {
+      // webpack trusts a check that passes and skips the schema, so the two
+      // must agree on every value
+      assert.strictEqual(check({ [key]: value }), isValid({ [key]: value }));
+      assert.strictEqual(check({ [key]: value }), type === "success");
+
       const compiler = getCompiler("./basic.less", {
         [key]: value,
       });
