@@ -1,5 +1,11 @@
 # Changelog
 
+## 13.1.1
+
+### Patch Changes
+
+- Pass a precompiled options check to `this.getOptions`, so webpack versions that accept it skip compiling the options schema. (by [@alexander-akait](https://github.com/alexander-akait) in [#625](https://github.com/webpack/less-loader/pull/625))
+
 ## 13.1.0
 
 ### Minor Changes
