@@ -67,35 +67,35 @@ exports[`validate options > should throw an error on the \"sourceMap\" option wi
 `;
 
 exports[`validate options > should throw an error on the \"unknown\" option with \"/test/\" value 1`] = `
-"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?, webpackImporter?, implementation?, lessLogAsWarnOrErr? }"
+"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?: boolean, webpackImporter?, implementation?, lessLogAsWarnOrErr?: boolean }"
 `;
 
 exports[`validate options > should throw an error on the \"unknown\" option with \"1\" value 1`] = `
-"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?, webpackImporter?, implementation?, lessLogAsWarnOrErr? }"
+"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?: boolean, webpackImporter?, implementation?, lessLogAsWarnOrErr?: boolean }"
 `;
 
 exports[`validate options > should throw an error on the \"unknown\" option with \"[]\" value 1`] = `
-"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?, webpackImporter?, implementation?, lessLogAsWarnOrErr? }"
+"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?: boolean, webpackImporter?, implementation?, lessLogAsWarnOrErr?: boolean }"
 `;
 
 exports[`validate options > should throw an error on the \"unknown\" option with \"false\" value 1`] = `
-"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?, webpackImporter?, implementation?, lessLogAsWarnOrErr? }"
+"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?: boolean, webpackImporter?, implementation?, lessLogAsWarnOrErr?: boolean }"
 `;
 
 exports[`validate options > should throw an error on the \"unknown\" option with \"test\" value 1`] = `
-"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?, webpackImporter?, implementation?, lessLogAsWarnOrErr? }"
+"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?: boolean, webpackImporter?, implementation?, lessLogAsWarnOrErr?: boolean }"
 `;
 
 exports[`validate options > should throw an error on the \"unknown\" option with \"true\" value 1`] = `
-"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?, webpackImporter?, implementation?, lessLogAsWarnOrErr? }"
+"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?: boolean, webpackImporter?, implementation?, lessLogAsWarnOrErr?: boolean }"
 `;
 
 exports[`validate options > should throw an error on the \"unknown\" option with \"{\"foo\":\"bar\"}\" value 1`] = `
-"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?, webpackImporter?, implementation?, lessLogAsWarnOrErr? }"
+"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?: boolean, webpackImporter?, implementation?, lessLogAsWarnOrErr?: boolean }"
 `;
 
 exports[`validate options > should throw an error on the \"unknown\" option with \"{}\" value 1`] = `
-"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?, webpackImporter?, implementation?, lessLogAsWarnOrErr? }"
+"Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.\\n - options has an unknown property 'unknown'. These properties are valid:\\n   object { lessOptions?, additionalData?, sourceMap?: boolean, webpackImporter?, implementation?, lessLogAsWarnOrErr?: boolean }"
 `;
 
 exports[`validate options > should throw an error on the \"webpackImporter\" option with \"string\" value 1`] = `

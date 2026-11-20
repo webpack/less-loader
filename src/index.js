@@ -1,5 +1,6 @@
 import path from "node:path";
 
+import check from "./options.check.js";
 import schema from "./options.json" with { type: "json" };
 import {
   errorFactory,
@@ -22,7 +23,7 @@ import {
  * @returns {Promise<void>} loader result
  */
 async function lessLoader(content) {
-  const options = this.getOptions(/** @type {Schema} */ (schema));
+  const options = this.getOptions(/** @type {Schema} */ (schema), check);
   const callback = this.async();
   let implementation;
 

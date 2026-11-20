@@ -25,6 +25,7 @@
     "/test/fixtures/generated-3.less",
     "node_modules",
     "coverage",
-    "*.log"
+    "*.log",
+    "src/options.check.js"
   ]
 }
